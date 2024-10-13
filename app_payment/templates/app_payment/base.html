@@ -1,0 +1,249 @@
+{% load static %}
+
+
+
+
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#f7858d">
+    <meta name="msapplication-navbutton-color" content="#f7858d">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#f7858d">
+    <title>{% block PageTitle %}{% endblock PageTitle %}</title>
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'app_store/css/vendor/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app_store/css/vendor/materialdesignicons.min.css' %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'app_store/css/vendor/bootstrap.min.css' %}">
+    <!-- Plugins -->
+    <link rel="stylesheet" href="{% static 'app_store/css/vendor/bootstrap-slider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app_store/css/vendor/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app_store/css/vendor/jquery.horizontalmenu.css' %}">
+    <link rel="stylesheet" href="{% static 'app_store/css/vendor/jquery-stack-menu.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app_store/css/vendor/fancybox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app_store/css/vendor/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'app_store/css/vendor/nouislider.min.css' %}">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="{% static 'app_store/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'app_store/css/colors/default.css' %}" id="colorswitch">
+</head>
+
+<body>
+    <div class="wrapper shopping-page">
+        <!-- Start header-shopping -->
+        <header class="header-shopping dt-sl">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center pt-2">
+                        <div class="header-shopping-logo dt-sl">
+                            <a href="#">
+                                <img src="{% static 'app_store/img/logo.png' %}" alt="">
+                            </a>
+                        </div>
+                    </div>
+
+
+
+
+                    {% block MainContent %}
+                    
+                    
+                    {% endblock MainContent %}
+
+
+
+                    <!-- Start mini-footer -->
+        <footer class="mini-footer dt-sl">
+            <div class="container main-container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 text-left">
+                        <i class="mdi mdi-phone-outline"></i>
+                        شماره تماس : <a href="#">
+                            ۶۱۹۳۰۰۰۰
+                            - ۰۲۱
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-right">
+                        <i class="mdi mdi-email-outline"></i>
+                        آدرس ایمیل : <a href="#">info@gmail.com</a>
+                    </div>
+                    <div class="col-12 text-center mt-2">
+                        <p class="text-secondary text-footer">
+                            استفاده از کارت هدیه یا کد تخفیف، درصفحه ی پرداخت امکان پذیر است.
+                        </p>
+                    </div>
+                    <div class="col-12 text-center">
+                        <div class="copy-right-mini-footer">
+                            Copyright © 2019 Didikala
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- End mini-footer -->
+    </div>
+    <!-- colorPanel -->
+    <div id="colorswitch-option">
+        <button><i class="mdi mdi-settings"></i></button>
+        <ul>
+            <li class="active" data-path="{% static 'app_store/css/colors/default.css' %}"><span style="background-color: #f7858d;"></span></li>
+            <li data-path="{% static 'app_store/css/colors/amber-color.css' %}"><span style="background-color: #ffab00;"></span></li>
+            <li data-path="{% static 'app_store/css/colors/blue-color.css' %}"><span style="background-color: #2979ff;"></span></li>
+            <li data-path="{% static 'app_store/css/colors/blue-grey-color.css' %}"><span style="background-color: #607d8b;"></span> </li>
+            <li data-path="{% static 'app_store/css/colors/brown-color.css' %}"><span style="background-color: #795548;"></span></li>
+            <li data-path="{% static 'app_store/css/colors/cyan-color.css' %}"><span style="background-color: #00bcd4;"></span></li>
+            <li data-path="{% static 'app_store/css/colors/green-color.css' %}"><span style="background-color: #4caf50;"></span></li>
+            <li data-path="{% static 'app_store/css/colors/indigo-color.css' %}"><span style="background-color: #3f51b5;"></span></li>
+            <li data-path="{% static 'app_store/css/colors/lime-color.css' %}"><span style="background-color: #cddc39;"></span></li>
+            <li data-path="{% static 'app_store/css/colors/orange-color.css' %}"><span style="background-color: #ff9800;"></span></li>
+            <li data-path="{% static 'app_store/css/colors/red-color.css' %}"><span style="background-color: #f44336;"></span></li>
+            <li data-path="{% static 'app_store/css/colors/teal-color.css' %}"><span style="background-color: #009688;"></span></li>
+            <li data-path="{% static 'app_store/css/colors/purple-color.css' %}"><span style="background-color: #9c27b0;"></span></li>
+        </ul>
+    </div>
+    <!-- end colorPanel -->
+    <!-- Core JS Files -->
+    <script src="{% static 'app_store/js/vendor/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'app_store/js/vendor/popper.min.js' %}"></script>
+    <script src="{% static 'app_store/js/vendor/bootstrap.min.js' %}"></script>
+    <!-- Plugins -->
+    <script src="{% static 'app_store/js/vendor/bootstrap-slider.min.js' %}"></script>
+    <script src="{% static 'app_store/js/vendor/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'app_store/js/vendor/owl.carousel2.thumbs.min.js' %}"></script>
+    <script src="{% static 'app_store/js/vendor/jquery.nicescroll.min.js' %}"></script>
+    <script src="{% static 'app_store/js/vendor/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'app_store/js/vendor/nouislider.min.js' %}"></script>
+    <script src="{% static 'app_store/js/vendor/jquery.horizontalmenu.js' %}"></script>
+    <script src="{% static 'app_store/js/vendor/jquery-stack-menu.min.js' %}"></script>
+    <script src="{% static 'app_store/js/vendor/jquery.fancybox.min.js' %}"></script>
+    <script src="{% static 'app_store/js/vendor/countdown.min.js' %}"></script>
+    <script src="{% static 'app_store/js/vendor/wNumb.js' %}"></script>
+    <script src="{% static 'app_store/js/vendor/ResizeSensor.min.js' %}"></script>
+    <script src="{% static 'app_store/js/vendor/theia-sticky-sidebar.min.js' %}"></script>
+    <!-- google map js -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAq7MrCR1A2qIShmjbtLHSKjcEIEBEEwM"></script>
+    <script>
+        // When the window has finished loading create our google map below
+        google.maps.event.addDomListener(window, 'load', init);
+
+        function init() {
+            // Basic options for a simple Google Map
+            // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+            var mapOptions = {
+                // How zoomed in you want the map to start at (always required)
+                zoom: 11,
+
+                scrollwheel: false,
+
+                // The latitude and longitude to center the map (always required)
+                center: new google.maps.LatLng(23.761226, 90.420766), // New York
+
+                // How you would like to style the map. 
+                // This is where you would paste any style found on Snazzy Maps.
+                styles: [{
+                    "featureType": "administrative",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{
+                        "color": "#444444"
+                    }]
+                },
+                {
+                    "featureType": "landscape",
+                    "elementType": "all",
+                    "stylers": [{
+                        "color": "#f2f2f2"
+                    }]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "all",
+                    "stylers": [{
+                        "visibility": "off"
+                    }]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "all",
+                    "stylers": [{
+                        "saturation": -100
+                    },
+                    {
+                        "lightness": 45
+                    }
+                    ]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "all",
+                    "stylers": [{
+                        "visibility": "simplified"
+                    }]
+                },
+                {
+                    "featureType": "road.arterial",
+                    "elementType": "labels.icon",
+                    "stylers": [{
+                        "visibility": "off"
+                    }]
+                },
+                {
+                    "featureType": "transit",
+                    "elementType": "all",
+                    "stylers": [{
+                        "visibility": "off"
+                    }]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "all",
+                    "stylers": [{
+                        "color": "#314453"
+                    },
+                    {
+                        "visibility": "on"
+                    }
+                    ]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "geometry.fill",
+                    "stylers": [{
+                        "lightness": "-12"
+                    },
+                    {
+                        "saturation": "0"
+                    },
+                    {
+                        "color": "#4bc7e9"
+                    }
+                    ]
+                }
+                ]
+            };
+
+            // Get the HTML DOM element that will contain your map 
+            // We are using a div with id="map" seen below in the <body>
+            var mapNew = document.getElementById('map');
+            var mapEdit = document.getElementById('map-edit');
+
+            // Create the Google Map using our element and options defined above
+            var map = new google.maps.Map(mapNew, mapOptions);
+            var mapEdit = new google.maps.Map(mapEdit, mapOptions);
+
+            // Let's also add a marker while we're at it
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(23.761226, 90.420766),
+                map: map,
+                title: 'Snazzy!'
+            });
+        }
+    </script>
+    <!-- Main JS File -->
+    <script src="{% static 'app_store/js/main.js' %}"></script>
+</body>
+
+</html>

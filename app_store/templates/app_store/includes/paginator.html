@@ -1,0 +1,23 @@
+{% if products.has_other_pages %}
+    <div class="row">
+        <div class="col-12">
+            <div class="pagination">
+                {% if products.has_previous %}
+                    <a href="?page={{ products.previous_page_number }}" class="prev"><i class="mdi mdi-chevron-double-right"></i></a>
+                {% endif %}
+                
+                {% for i in products.paginator.page_range %}
+                    {% if products.number == i %}
+                        <a href="?page={{ i }}" class="active-page">{{ i }}</a>
+                    {% else %}
+                        <a href="?page={{ i }}">{{ i }}</a>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if products.has_next %}
+                    <a href="?page={{ products.next_page_number }}" class="next"><i class="mdi mdi-chevron-double-left"></i></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endif %}

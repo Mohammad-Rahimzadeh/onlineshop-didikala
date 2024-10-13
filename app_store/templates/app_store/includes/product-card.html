@@ -1,0 +1,41 @@
+{% load static %}
+{% load humanize %}
+
+
+<div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0">
+    <div class="product-card mb-2 mx-res-0">
+        {% comment %} <div class="promotion-badge">
+            فروش ویژه
+        </div> {% endcomment %}
+        <div class="product-head">
+            <div class="rating-stars">
+                <i class="mdi mdi-star active"></i>
+                <i class="mdi mdi-star active"></i>
+                <i class="mdi mdi-star active"></i>
+                <i class="mdi mdi-star active"></i>
+                <i class="mdi mdi-star active"></i>
+            </div>
+            <div class="discount">
+                {% if product.off_percent > 0 %}
+                    <span>{{ product.off_percent }}%</span>
+                {% endif %}
+            </div>
+        </div>
+        <a class="product-thumb" href="{% url 'product_detail' product.id %}">
+            {% for image in product.images|slice:":1" %}
+                <img src="{{ image.image.url }}" alt="Product Thumbnail">
+            {% endfor %}
+        </a>
+        <div class="product-card-body">
+            <h5 class="product-title">
+                <a href="{% url 'product_detail' product.id %}">{{ product.name_fa|slice:30 }} ...</a>
+            </h5>
+            <a class="product-meta" href="shop-categories.html">{{ product.category.first }} </a>
+            {% if product.off_percent > 0 %}
+                <span class="product-price">{{ product.get_final_price|floatformat:False|intcomma:False }} تومان</span>
+            {% else %}
+                <span class="product-price">{{ product.price|intcomma:False }} تومان</span>
+            {% endif %}
+        </div>
+    </div>
+</div>

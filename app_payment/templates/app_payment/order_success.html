@@ -1,0 +1,9 @@
+{% extends 'app_store/base.html' %}
+
+{% block MainContent %}
+    <div style='margin-top:500px;'></div>
+
+    <h1>سفارش شما با موفقیت ثبت شد!</h1>
+    <p>از خرید شما متشکریم!</p>
+    <a href="{% url 'basket_view' %}">برگشت به سبد خرید</a>
+{% endblock %}

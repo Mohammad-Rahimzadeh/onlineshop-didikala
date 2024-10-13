@@ -1,0 +1,236 @@
+{% extends "app_blog/base.html" %}
+{% load static %}
+
+
+
+{% block PageTitle %}
+        Didikala | Blog
+{% endblock PageTitle %}
+
+
+
+
+{% block BlogContent %}
+    <!-- Start main-content -->
+    <main class="main-content dt-sl mb-3">
+        <div class="container main-container">
+            <div class="row mt-5 pt-5">
+                <div class="col-lg-9 col-md-8 col-sm-12 col-12 mb-3">
+                    <div class="row">
+                        
+                        {% for blog in blog %}
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                                <div class="post-card">
+                                    <div class="post-thumbnail">
+                                        <a href="{% url 'single-blog' slug=blog.slug %}">
+                                            <img src="{{ blog.thumbnail.url }}" alt="">
+                                        </a>
+                                        <span class="post-tag">مقاله</span>
+
+                                    </div>
+                                    <div class="post-title">
+                                        <a href="{% url 'single-blog' slug=blog.slug %}">
+                                            {{ blog.title }}
+                                        </a>
+                                        <span class="post-date">
+                                            {{ blog.created_date }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                        {% comment %} <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                            <div class="post-card">
+                                <div class="post-thumbnail">
+                                    <a href="#">
+                                        <img src="{% static 'app_store/img/post-thumbnail/2.png' %}" alt="">
+                                    </a>
+                                    <span class="post-tag">مقاله</span>
+
+                                </div>
+                                <div class="post-title">
+                                    <a href="#">
+                                        امنیت سایتت رو تامین کن
+                                    </a>
+                                    <span class="post-date">
+                                        چهارشنبه، 18 دی 1398
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                            <div class="post-card">
+                                <div class="post-thumbnail">
+                                    <a href="#">
+                                        <img src="{% static 'app_store/img/post-thumbnail/3.png' %}" alt="">
+                                    </a>
+                                    <span class="post-tag">مقاله</span>
+
+                                </div>
+                                <div class="post-title">
+                                    <a href="#">
+                                        اینستاگرام را پول ساز کن
+                                    </a>
+                                    <span class="post-date">
+                                        چهارشنبه، 18 دی 1398
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                            <div class="post-card">
+                                <div class="post-thumbnail">
+                                    <a href="#">
+                                        <img src="{% static 'app_store/img/post-thumbnail/4.png' %}" alt="">
+                                    </a>
+                                    <span class="post-tag">مقاله</span>
+
+                                </div>
+                                <div class="post-title">
+                                    <a href="#">
+                                        سایت خودت رو چند زبانه کن
+                                    </a>
+                                    <span class="post-date">
+                                        چهارشنبه، 18 دی 1398
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                            <div class="post-card">
+                                <div class="post-thumbnail">
+                                    <a href="#">
+                                        <img src="{% static 'app_store/img/post-thumbnail/5.png' %}" alt="">
+                                    </a>
+                                    <span class="post-tag">مقاله</span>
+
+                                </div>
+                                <div class="post-title">
+                                    <a href="#">
+                                        تخصصی واسه وردپرس پلاگین بنویس
+                                    </a>
+                                    <span class="post-date">
+                                        چهارشنبه، 18 دی 1398
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                            <div class="post-card">
+                                <div class="post-thumbnail">
+                                    <a href="#">
+                                        <img src="{% static 'app_store/img/post-thumbnail/4.png' %}" alt="">
+                                    </a>
+                                    <span class="post-tag">مقاله</span>
+
+                                </div>
+                                <div class="post-title">
+                                    <a href="#">
+                                        سایت خودت رو چند زبانه کن
+                                    </a>
+                                    <span class="post-date">
+                                        چهارشنبه، 18 دی 1398
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                            <div class="post-card">
+                                <div class="post-thumbnail">
+                                    <a href="#">
+                                        <img src="{% static 'app_store/img/post-thumbnail/2.png' %}" alt="">
+                                    </a>
+                                    <span class="post-tag">مقاله</span>
+
+                                </div>
+                                <div class="post-title">
+                                    <a href="#">
+                                        امنیت سایتت رو تامین کن
+                                    </a>
+                                    <span class="post-date">
+                                        چهارشنبه، 18 دی 1398
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                            <div class="post-card">
+                                <div class="post-thumbnail">
+                                    <a href="#">
+                                        <img src="{% static 'app_store/img/post-thumbnail/3.png' %}" alt="">
+                                    </a>
+                                    <span class="post-tag">مقاله</span>
+
+                                </div>
+                                <div class="post-title">
+                                    <a href="#">
+                                        اینستاگرام را پول ساز کن
+                                    </a>
+                                    <span class="post-date">
+                                        چهارشنبه، 18 دی 1398
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                            <div class="post-card">
+                                <div class="post-thumbnail">
+                                    <a href="#">
+                                        <img src="{% static 'app_store/img/post-thumbnail/4.png' %}" alt="">
+                                    </a>
+                                    <span class="post-tag">مقاله</span>
+
+                                </div>
+                                <div class="post-title">
+                                    <a href="#">
+                                        سایت خودت رو چند زبانه کن
+                                    </a>
+                                    <span class="post-date">
+                                        چهارشنبه، 18 دی 1398
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                            <div class="post-card">
+                                <div class="post-thumbnail">
+                                    <a href="#">
+                                        <img src="{% static 'app_store/img/post-thumbnail/5.png' %}" alt="">
+                                    </a>
+                                    <span class="post-tag">مقاله</span>
+
+                                </div>
+                                <div class="post-title">
+                                    <a href="#">
+                                        تخصصی واسه وردپرس پلاگین بنویس
+                                    </a>
+                                    <span class="post-date">
+                                        چهارشنبه، 18 دی 1398
+                                    </span>
+                                </div>
+                            </div>
+                        </div> {% endcomment %}
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="pagination">
+                                <a href="#" class="prev"><i class="mdi mdi-chevron-double-right"></i></a>
+                                <a href="#">1</a>
+                                <a href="#" class="active-page">2</a>
+                                <a href="#">3</a>
+                                <a href="#">4</a>
+                                <a href="#">...</a>
+                                <a href="#">7</a>
+                                <a href="#" class="next"><i class="mdi mdi-chevron-double-left"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+                
+                
+{% endblock BlogContent %}
+        

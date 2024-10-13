@@ -1,0 +1,110 @@
+{% extends "app_account/base.html" %}
+{% load static %}
+
+{% block MainContent %}
+
+    <div class="auth-wrapper form-ui border pt-4">
+        <div class="section-title title-wide mb-1 no-after-title-wide">
+            <h2 class="font-weight-bold">ثبت نام</h2>
+        </div>
+        <div class="message-light">
+            اگر قبلا با ایمیل ثبت‌نام کرده‌اید، نیاز به ثبت‌نام مجدد با شماره همراه ندارید
+        </div>
+        <form method='POST' encctype='multipart/form-data'>
+            {% csrf_token %}
+
+            <div class="form-row-title">
+                <h3>نام کاربری</h3>
+            </div>
+            <div class="form-row with-icon">
+                <input type="text" name='username' class="input-ui pr-2" placeholder="نام کاربری خود را وارد نمایید">
+                <i class="mdi mdi-account-circle-outline"></i>
+            </div>
+            
+            <div class="form-row-title">
+                <h3>نام</h3>
+            </div>
+            <div class="form-row with-icon">
+                <input type="text" name='first_name' class="input-ui pr-2" placeholder="نام خود را وارد نمایید">
+                <i class="mdi mdi-account-circle-outline"></i>
+            </div>
+
+            <div class="form-row-title">
+                <h3>نام خانوادگی</h3>
+            </div>
+            <div class="form-row with-icon">
+                <input type="text" name='last_name' class="input-ui pr-2" placeholder="نام خانوادگی خود را وارد نمایید">
+                <i class="mdi mdi-account-circle-outline"></i>
+            </div>
+
+            <div class="form-row-title">
+                <h3>تلفن همراه</h3>
+            </div>
+            <div class="form-row with-icon">
+                <input type="text" name='phone_number' class="input-ui pr-2" placeholder="شماره تلفن همراه خود را وارد نمایید">
+                <i class="mdi mdi-account-circle-outline"></i>
+            </div>
+            
+            <div class="form-row-title">
+                <h3>آدرس ایمیل</h3>
+            </div>
+            <div class="form-row with-icon">
+                <input type="text" name='email' class="input-ui pr-2" placeholder=" آدرس ایمیل خود را وارد نمایید">
+                <i class="mdi mdi-account-circle-outline"></i>
+            </div>
+
+            <div class="form-row-title">
+                <h3>رمز عبور</h3>
+            </div>
+            <div class="form-row with-icon">
+                <input type="password" id='password' name='password' class="input-ui pr-2" placeholder="رمز عبور خود را وارد نمایید">
+                <i class="mdi mdi-lock-open-variant-outline"></i>
+                <i id="toggle-hide-password" onclick="toggleHidePassword()" class="mdi mdi-eye-off-outline" style='margin-left:8%;'></i>
+            </div>
+
+
+            {% comment %} <div class="form-row-title">
+                <h3>تکرار رمز عبور</h3>
+            </div>
+            <div class="form-row with-icon">
+                <input type="password" name='password2' class="input-ui pr-2" placeholder="رمز عبور خود را مجددا وارد نمایید">
+                <i class="mdi mdi-lock-open-variant-outline"></i>
+            </div> {% endcomment %}
+
+
+            <div class="form-row mt-2">
+                <div class="custom-control custom-checkbox float-right mt-2">
+                    <input type="checkbox" class="custom-control-input" id="customCheck3">
+                    <label class="custom-control-label text-justify" for="customCheck3">
+                        <a href="{% url 'privacy' %}">حریم خصوصی</a> و <a href="{% url 'privacy' %}">شرایط و قوانین</a> استفاده از سرویس
+                        های سایت دیدیکالا را مطالعه نموده و با کلیه موارد آن موافقم.
+                    </label>
+                </div>
+            </div>
+            <div class="form-row mt-3">
+                <button class="btn-primary-cm btn-with-icon mx-auto w-100">
+                    <i class="mdi mdi-account-circle-outline"></i>
+                    ثبت نام در دیدیکالا
+                </button>
+            </div>
+        </form>
+        <div class="form-footer mt-3">
+            <div>
+                <span class="font-weight-bold">قبلا ثبت نام کرده اید؟</span>
+                <a href="{% url 'login' %}" class="mr-3 mt-2">وارد شوید</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock MainContent %}
+
+{% block ExtraJS %}
+
+<script>
+    function toggleHidePassword(){
+        $("#toggle-hide-password").toggleClass('mdi-eye-off-outline mdi-eye-outline');
+        $("#password").get(0).type = 'text';
+    }
+</script>
+
+{% endblock ExtraJS %}

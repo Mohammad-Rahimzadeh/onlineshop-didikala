@@ -1,0 +1,19 @@
+{% for cat in category %}
+    {% if cat.parent == None %}
+        <li><a href="{% url 'categories' cat.slug %}">{{ cat.name }}</a>
+            {% if cat.sub_categories.all %}
+                <ul class="row">
+                    {% for cat in cat.sub_categories.all %}
+                        <li class="sublist--title"><a href="{% url 'categories' cat.slug %}">{{ cat.name }}</a>
+                        {% if cat.sub_categories.all %}
+                            {% for cat in cat.sub_categories.all %}
+                                <li class="sublist--item"><a href="{% url 'categories' cat.slug %}">{{ cat.name }}</a></li>
+                            {% endfor %}
+                        {% endif %} 
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}  
+        </li>
+    {% endif %}
+{% endfor %}

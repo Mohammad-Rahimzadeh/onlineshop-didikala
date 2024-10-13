@@ -1,0 +1,189 @@
+{% extends "app_store/base.html" %}
+{% load static %}
+{% load humanize %}
+
+
+{% block pageTitle %}
+    Didikala | {{ user.username }} Comments
+{% endblock pageTitle %}
+
+
+
+
+
+{% block MainContent %}
+
+    <!-- Start main-content -->
+    <main class="main-content dt-sl mb-3">
+        <div class="container main-container">
+            <div class="row">
+                <!-- Start Sidebar -->
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 sticky-sidebar">
+                    <div class="profile-sidebar dt-sl">
+                        <div class="dt-sl dt-sn border mb-3">
+                            <div class="profile-sidebar-header dt-sl">
+                                <div class="d-flex align-items-center">
+                                    <div class="profile-avatar">
+                                        <img src="{{ user.profile.image.url }}" alt="">
+                                    </div>
+                                    <div class="profile-header-content mr-3 mt-2">
+                                        <span class="d-block profile-username">{{ user.get_full_name }}</span>
+                                        <span class="d-block profile-phone">{{ user.profile.phone_number }}</span>
+                                    </div>
+                                </div>
+                                <div class="profile-point mt-3 mb-2 dt-sl">
+                                    <span class="label-profile-point">امتیاز شما:</span>
+                                    <span class="float-left value-profile-point">{{ user.profile.user_score }}</span>
+                                </div>
+                                <div class="profile-link mt-2 dt-sl">
+                                    <div class="row">
+                                        <div class="col-6 text-center">
+                                            <a href="{% url 'change_password' %}">
+                                                <i class="mdi mdi-lock-reset"></i>
+                                                <span class="d-block">تغییر رمز</span>
+                                            </a>
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <a href="{% url 'logout' %}">
+                                                <i class="mdi mdi-logout-variant"></i>
+                                                <span class="d-block">خروج از حساب</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dt-sl dt-sn border mb-3">
+                            <div class="profile-menu-section dt-sl">
+                                <div class="label-profile-menu mt-2 mb-2">
+                                    <span>حساب کاربری شما</span>
+                                </div>
+                                <div class="profile-menu">
+                                    <ul>
+                                        <li>
+                                            <a href="{% url 'profile' %}" class="alert alert-danger">
+                                                <i class="mdi mdi-account-circle-outline"></i>
+                                                پروفایل
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="alert alert-danger">
+                                                <i class="mdi mdi-basket"></i>
+                                                همه سفارش ها
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="alert alert-danger">
+                                                <i class="mdi mdi-backburger"></i>
+                                                درخواست مرجوعی
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'favorites' %}" class="alert alert-danger">
+                                                <i class="mdi mdi-heart-outline"></i>
+                                                لیست علاقمندی ها
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'comments' %}" class="alert alert-danger active">
+                                                <i class="mdi mdi-glasses"></i>
+                                                نقد و نظرات
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'addresses' %}" class="alert alert-danger">
+                                                <i class="mdi mdi-sign-direction"></i>
+                                                آدرس ها
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="alert alert-danger">
+                                                <i class="mdi mdi-eye-outline"></i>
+                                                بازدیدهای اخیر
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'personal-info' %}" class="alert alert-danger">
+                                                <i class="mdi mdi-account-edit-outline"></i>
+                                                اطلاعات شخصی
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Sidebar -->
+                <!-- Start Content -->
+                <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div
+                                class="section-title text-sm-title title-wide mb-1 no-after-title-wide dt-sl mb-2 px-res-1">
+                                <h2>نقد و نظرات</h2>
+                            </div>
+                            <div class="dt-sl">
+                                <div class="row">
+                                    {% for comment in user_comments %}
+                                        <div class="col-lg-6 col-md-12">
+                                            <div class="card-horizontal-product border-bottom rounded-0">
+                                                <div class="card-horizontal-product-thumb">
+
+                                                    <a class="product-thumb" href="{% url 'product_detail' comment.product.id %}">
+                                                        {% for image in comment.product.images|slice:":1" %}
+                                                            <img src="{{ image.image.url }}" alt="Product Thumbnail">
+                                                        {% endfor %}
+                                                    </a>
+                                                    <small class="font-weight-bold">امتیاز من به محصول</small>
+                                                    <div class="rating-stars">
+                                                        <i class="mdi mdi-star active"></i>
+                                                        <i class="mdi mdi-star active"></i>
+                                                        <i class="mdi mdi-star active"></i>
+                                                        <i class="mdi mdi-star active"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="card-horizontal-product-content">
+                                                    <div class="label-status-comment">
+                                                        {% if comment.is_published %}
+                                                            تایید شده
+                                                        {% else %}
+                                                            تایید نشده
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="card-horizontal-comment-title">
+                                                        <a href="#">
+                                                            <h3>{{ comment.title }}</h3>
+                                                        </a>
+                                                    </div>
+                                                    <div class="card-horizontal-comment">
+                                                        <p>{{ comment.body }}</p>
+                                                    </div>
+                                                    <div class="card-horizontal-product-buttons">
+                                                        <div class="float-right">
+                                                            <span class="count-like">
+                                                                <i class="mdi mdi-thumb-up-outline"></i>{{ comment.like_count }}
+                                                            </span>
+                                                            <span class="count-like">
+                                                                <i class="mdi mdi-thumb-down-outline"></i>{{ comment.dislike_count }}
+                                                            </span>
+                                                        </div>
+                                                        <a class="btn btn-light" href="{% url 'delete_comment' comment.id %}">حذف</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Content -->
+            </div>
+        </div>
+    </main>
+    <!-- End main-content -->
+{% endblock MainContent %}

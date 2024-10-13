@@ -1,0 +1,152 @@
+{% extends "app_store/base.html" %}
+{% load static %}
+
+{% block pageTitle %}
+    Edit Profile | {{ user.username }}
+{% endblock pageTitle %}
+
+
+{% block MainContent %}
+
+    <!-- Start Content -->
+    <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12" style='margin-top:15%; margin-bottom:10%;'>
+        <div class="row">
+            <div class="col-12">
+                <div class="px-3 px-res-0">
+                    <div
+                        class="section-title text-sm-title title-wide mb-1 no-after-title-wide dt-sl mb-2 px-res-1">
+                        <h2>ویرایش اطلاعات شخصی</h2>
+                    </div>
+                    <div class="form-ui additional-info dt-sl dt-sn pt-4">
+                        {% comment %} <div class="row-title" >
+                            <h3 style='margin-right:20%; color:red; font-size:10pt; text-align:center; border:3px solid #ffa6a6; padding:10px 10px; border-radius:10px; width:60%;'>
+                                {{ complete_profile_message }}
+                            </h3>
+                        </div> {% endcomment %}
+
+                        <form method='POST' enctype='multipart/form-data'>
+                            {% csrf_token %}
+                            {{ user_edit_form.as_p }}
+                            {{ profile_edit_form.as_p }}
+
+                            {% comment %} <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-row-title">
+                                        <h3>نام</h3>
+                                    </div>
+                                    <div class="form-row additional-form-item">
+                                        <input type="text" name='first_name' id="id_first_name" class="input-ui pr-2" placeholder="نام خود را وارد نمایید" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-row-title">
+                                        <h3>نام و نام خانوادگی</h3>
+                                    </div>
+                                    <div class="form-row additional-form-item">
+                                        <input type="text" name='last_name' id="id_last_name" class="input-ui pr-2" placeholder="نام خانوادگی خود را وارد نمایید" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-row-title">
+                                        <h3>کد ملی</h3>
+                                    </div>
+                                    <div class="form-row additional-form-item">
+                                        <input type="text" name='natural_id' class="input-ui pl-2 text-left dir-ltr" placeholder="-" >
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-row-title">
+                                        <h3>شماره موبایل</h3>
+                                    </div>
+                                    <div class="form-row additional-form-item">
+                                        <input type="text" name='phone_number' id="id_phone_number" class="input-ui pl-2 text-left dir-ltr" placeholder="شماره موبایل خود را وارد نمایید" value="09xxxxxxxxx">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-row-title">
+                                        <h3>آدرس ایمیل</h3>
+                                    </div>
+                                    <div class="form-row additional-form-item">
+                                        <input type="email" name='email' id="id_email" class="input-ui pl-2 text-left dir-ltr" placeholder="آدرس ایمیل خود را وارد نمایید" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="pt-2 pb-2 mb-3 dt-sl">
+                                        <div class="form-row-title mb-2">
+                                            <h3>شماره کارت</h3>
+                                        </div>
+                                        <div class="form-row additional-form-item">
+                                            <input type="text" name='card_no' id="id_card_no" class="input-ui pl-2 text-left dir-ltr" placeholder="-">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-row-title">
+                                        <h3>عکس پروفایل</h3>
+                                    </div>
+                                    <div class="form-row mt-2">
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type="file" name='image' id="id_image" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                                                <label class="custom-file-label" for="inputGroupFile04">انتخاب عکس</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="profile-avatar">
+                                        {% if profile_image %}
+                                            <img src="{{ profile_image.url }}"  style='width:30%; height:80%;' >
+                                        {% else %}
+                                            <img src="{% static 'app_store/img/theme/avatar.png' %}" alt="">
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="col-12 mb-3"> 
+                                    <div class="form-row mt-2">
+                                        <div class="custom-control custom-checkbox float-right mt-2">
+                                            <input type="checkbox" class="custom-control-input"
+                                                id="customCheck3">
+                                            <label class="custom-control-label text-justify"
+                                                for="customCheck3">
+                                                تبعه خارجی فاقد کد ملی هستم
+                                            </label>
+                                        </div>
+                                    </div> 
+                                    <div class="form-row mt-2">
+                                        <div class="custom-control custom-checkbox float-right mt-2">
+                                            <input type="checkbox" name='get_newsletter' id="id_get_newsletter" class="custom-control-input" id="customCheck4">
+                                            <label class="custom-control-label text-justify" for="customCheck4">
+                                                اشتراک در خبرنامه دیدیکالا
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endcomment %}
+                            </div>
+                            <div class="dt-sl">
+                                <div class="form-row mt-3 justify-content-end">
+                                    <button type='submit' class="btn-primary-cm btn-with-icon ml-2">
+                                        <i class="mdi mdi-account-circle-outline"></i>
+                                        ثبت اطلاعات کاربری
+                                    </button>
+                                    <a href="{% url 'profile' %}" class="btn-primary-cm bg-secondary">بازگشت</a>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Content -->
+
+
+{% endblock MainContent %}

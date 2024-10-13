@@ -1,0 +1,536 @@
+{% extends "app_store/base.html" %}
+{% load static %}
+{% load humanize %}
+
+
+{% block pageTitle %}
+            didikala | {{single_product.name_fa}}
+{% endblock pageTitle %}
+
+
+{% block MainContent %}
+
+    <!-- Start main-content -->
+    <main class="main-content dt-sl mb-3">
+        <div class="container main-container">
+            <!-- Start Product -->
+            <div class="dt-sn mb-5 dt-sl">
+                <div class="row">
+                    <!-- Product Gallery-->
+                    <div class="col-lg-4 col-md-6 ps-relative">
+                        <!-- Product Options-->
+                        <ul class="gallery-options">
+                            <li>
+                                <button class="add-favorites"><i class="mdi mdi-heart"></i></button>
+                                <span class="tooltip-option">افزودن به علاقمندی</span>
+                            </li>
+                        </ul>
+                        <div class="product-timeout position-relative pt-5 mb-3">
+                            <div class="promotion-badge not-available">
+                                ناموجود
+                            </div>
+                        </div>
+                        <div class="product-gallery">
+                            <span class="badge">پر فروش</span>
+                            <div class="product-carousel owl-carousel" data-slider-id="1">
+                                {% for image in single_product.images %}
+                                    <div class="item">
+                                        <a class="gallery-item" href="{{ image.image.url }}"
+                                            data-fancybox="gallery1">
+                                            <img src="{{ image.image.url }}" alt="Product">
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="d-flex justify-content-center flex-wrap">
+                                <ul class="product-thumbnails owl-thumbs ml-2" data-slider-id="1">
+                                    {% for image in single_product.images %}
+                                        <li class="owl-thumb-item active">
+                                            <a href="">
+                                                <img src="{{ image.image.url }}" alt="Product">
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                <ul class="product-thumbnails">
+                                    <li>
+                                        <a class="navi-link text-sm" href="./assets/video/download.mp4"
+                                            data-fancybox data-width="960" data-height="640">
+                                            <i class="mdi mdi-video text-lg d-block mb-1"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Info -->
+                    <div class="col-lg-8 col-md-6 py-2">
+                        <div class="product-info dt-sl">
+                            <div class="product-title dt-sl">
+                                <h1>{{ single_product.name_fa }} </h1>
+                                {% if single_product.name_en %}
+                                    <h3>{{ single_product.name_en }}</h3>
+                                {% endif %}
+                            </div>
+                            {% if colors %}
+                                <div class="product-variant dt-sl">
+                                    <div class="section-title text-sm-title title-wide no-after-title-wide mb-0">
+                                        <h2>انتخاب رنگ:</h2>
+                                    </div>
+                                    <ul class="product-variants float-right ml-3">
+                                        {% for color in colors %}
+                                            <li class="ui-variant">
+                                                <label class="ui-variant ui-variant--color">
+                                                    <span class="ui-variant-shape"
+                                                        style="background-color: #212121"></span>
+                                                    <input type="radio" value="1" name="color"
+                                                        class="variant-selector" checked>
+                                                    <span class="ui-variant--check">{{ color.color_name }}</span>
+                                                </label>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                            <div class="product-params dt-sl">
+                                <ul data-title="ویژگی‌های محصول">
+                                    {% if single_product.descriptions.all %}
+                                        {% for description in single_product.descriptions.all|slice:':3' %}
+                                            <li>
+                                                <span>{{ description.title }}</span>
+                                                <span> {{ description.description }}</span>
+                                            </li>
+                                        {% endfor %}
+                                    {% endif %}
+                                </ul>
+                                <div class="sum-more">
+                                    <span class="show-more btn-link-border">
+                                        + موارد بیشتر
+                                    </span>
+                                    <span class="show-less btn-link-border">
+                                        - بستن
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="section-title text-sm-title title-wide no-after-title-wide mb-0 dt-sl">
+                                <h2>کد محصول:{{ single_product.create_product_code }}</h2>
+                            </div>
+                            <div class="section-title text-sm-title title-wide no-after-title-wide mb-0 dt-sl">
+                                <h2>قیمت : <span class="price">{{ single_product.price|floatformat:0|intcomma:False }} تومان</span> </h2>
+                            </div>
+                            <div class="dt-sl mt-4">
+                                <a href="#" class="btn-primary-cm bg-secondary btn-with-icon">
+                                    <i class="mdi mdi-information"></i>
+                                    موجود شد به من اطلاع بده
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dt-sn mb-5 px-0 dt-sl pt-0">
+                <!-- Start tabs -->
+                <section class="tabs-product-info mb-3 dt-sl">
+                    <div class="ah-tab-wrapper border-bottom dt-sl">
+                        <div class="ah-tab dt-sl">
+                            <a class="ah-tab-item" data-ah-tab-active="true" href=""><i
+                                    class="mdi mdi-glasses"></i>نقد و بررسی</a>
+                            <a class="ah-tab-item" href=""><i class="mdi mdi-format-list-checks"></i>مشخصات</a>
+                            <a class="ah-tab-item" href=""><i
+                                    class="mdi mdi-comment-text-multiple-outline"></i>نظرات کاربران</a>
+                            <a class="ah-tab-item" href=""><i class="mdi mdi-comment-question-outline"></i>پرسش و
+                                پاسخ</a>
+                        </div>
+                    </div>
+                    <div class="ah-tab-content-wrapper product-info px-4 dt-sl">
+                        <div class="ah-tab-content dt-sl" data-ah-tab-active="true">
+                            <div class="section-title text-sm-title title-wide no-after-title-wide mb-0 dt-sl">
+                                <h2>نقد و بررسی</h2>
+                            </div>
+                            <div class="product-title dt-sl">
+                                <h1>{{ single_product.name_fa }}</h1>
+                                {% if single_product.name_en %}
+                                    <h3>{{ single_product.name_en }}</h3>
+                                {% endif %}
+                            </div>
+                            <div class="description-product dt-sl mt-3 mb-3">
+                                <div class="container">
+                                    <p>{{ single_product.review }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ah-tab-content params dt-sl">
+                            <div class="section-title text-sm-title title-wide no-after-title-wide mb-0 dt-sl">
+                                <h2>مشخصات فنی</h2>
+                            </div>
+                            <div class="product-title dt-sl mb-3">
+                                <h1>{{ single_product.name_fa }} </h1>
+                                {% if single_product.name_en %}
+                                    <h3>{{ single_product.name_en }}</h3>
+                                {% endif %}
+                            </div>
+                            <br>
+                            <br>
+                            <section>
+                                <h3 class="params-title">مشخصات کلی</h3>
+                                <ul class="params-list">
+                                    {% for description in single_product.descriptions.all %}
+                                        <li>
+                                            <div class="params-list-key">
+                                                <span class="d-block "><b>{{ description.title }}</b></span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span class="d-block" >
+                                                    <p style='line-height:5; margin-top:0%;'>{{ description.description|linebreaksbr }}</p>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </section>
+                        </div>
+                        <div class="ah-tab-content comments-tab dt-sl">
+                            <div class="section-title title-wide no-after-title-wide mb-0 dt-sl">
+                                <h2>امتیاز کاربران به:</h2>
+                            </div>
+                            <div class="product-title dt-sl mb-3">
+                                <h1>{{ single_product.name_fa }}</h1>
+                                <h3>{{ single_product.name_en }}<span class="rate-product">(4 از 5 | 15 نفر)</span></h3>
+                            </div>
+                            <div class="dt-sl">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <ul class="content-expert-rating">
+                                            <li>
+                                                <div class="cell">طراحی</div>
+                                                <div class="cell">
+                                                    <div class="rating rating--general" data-rate-digit="عالی">
+                                                        <div class="rating-rate" data-rate-value="100%"
+                                                            style="width: 70%;"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="cell">ارزش خرید</div>
+                                                <div class="cell">
+                                                    <div class="rating rating--general" data-rate-digit="عالی">
+                                                        <div class="rating-rate" data-rate-value="100%"
+                                                            style="width: 20%;"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="cell">کیفیت ساخت</div>
+                                                <div class="cell">
+                                                    <div class="rating rating--general" data-rate-digit="عالی">
+                                                        <div class="rating-rate" data-rate-value="100%"
+                                                            style="width: 100%;"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="cell">صدای مزاحم</div>
+                                                <div class="cell">
+                                                    <div class="rating rating--general" data-rate-digit="عالی">
+                                                        <div class="rating-rate" data-rate-value="100%"
+                                                            style="width: 100%;"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="cell">مصرف انرژی و آب</div>
+                                                <div class="cell">
+                                                    <div class="rating rating--general" data-rate-digit="عالی">
+                                                        <div class="rating-rate" data-rate-value="100%"
+                                                            style="width: 100%;"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="cell">امکانات و قابلیت ها</div>
+                                                <div class="cell">
+                                                    <div class="rating rating--general" data-rate-digit="عالی">
+                                                        <div class="rating-rate" data-rate-value="100%"
+                                                            style="width: 100%;"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="comments-summary-note">
+                                            <span>شما هم می‌توانید در مورد این کالا نظر
+                                                بدهید.</span>
+                                            <p>برای ثبت نظر، لازم است ابتدا وارد حساب کاربری خود
+                                                شوید. اگر این محصول را قبلا از دیجی‌کالا خریده
+                                                باشید، نظر
+                                                شما به عنوان مالک محصول ثبت خواهد شد.
+                                            </p>
+                                            <div class="dt-sl mt-2">
+                                                <a href="{% url 'add_comment' single_product.id %}" class="btn-primary-cm btn-with-icon ">
+                                                    <i class="mdi mdi-comment-text-outline"></i>
+                                                    افزودن نظر جدید
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="comments-area dt-sl">
+                                    <div
+                                        class="section-title text-sm-title title-wide no-after-title-wide mb-0 dt-sl">
+                                        {% if comments %}
+                                            <h2>نظرات کاربران</h2>
+                                            <p class="count-comment">{% with comments.count as count %} {{ count }} {% endwith %} نظر</p>
+                                        {% else %}
+                                            <p class="count-comment">هیچ نظری ثبت نشده است</p>
+                                        {% endif %}
+                                    </div>
+                                    <ol class="comment-list">
+                                        <!-- #comment-## -->
+                                        {% for comment in comments %}
+                                            <li>
+                                                <div class="comment-body">
+                                                    <div class="row">
+                                                        <div class="col-md-3 col-sm-12">
+                                                            <div class="message-light message-light--purchased">
+                                                                خریدار این محصول</div>
+                                                            <ul class="comments-user-shopping">
+                                                                <li>
+                                                                    <div class="cell">رنگ خریداری
+                                                                        شده:</div>
+                                                                    <div class="cell color-cell">
+                                                                        <span class="shopping-color-value"
+                                                                            style="background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.25)"></span>سفید
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="cell">خریداری شده
+                                                                        از:</div>
+                                                                    <div class="cell seller-cell">
+                                                                        <span class="o-text-blue">دیدیکالا</span>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                            {% if comment.is_suggest %}
+                                                                <div class="message-light message-light--opinion-positive"> خرید این محصول را توصیه می‌کنم</div>
+                                                            {% else %}
+                                                                <div class="message-light message-light--opinion-negative"> خرید این محصول را توصیه می‌کنم</div>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="col-md-9 col-sm-12 comment-content">
+                                                            <div class="comment-title">
+                                                                {{ comment.title }}
+                                                            </div>
+                                                            <div class="comment-author">
+                                                                توسط {{ comment.user.first_name }} {{ comment.user.last_name }} در تاریخ {{ comment.created_date }}
+                                                            </div>
+                                                            
+                                                            <p>{{ comment.body }}</p>
+
+                                                            <div class="row">
+                                                                {% if comment.strength %}
+                                                                    <div class="col-md-4 col-sm-6 col-12">
+                                                                        <div class="content-expert-evaluation-positive">
+                                                                            <span>نقاط قوت</span>
+                                                                            <ul>
+                                                                                <li>{{ comment.strength|linebreaks }}</li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if comment.weakness %}
+                                                                    <div class="col-md-4 col-sm-6 col-12">
+                                                                        <div class="content-expert-evaluation-negative">
+                                                                            <span>نقاط ضعف</span>
+                                                                            <ul>
+                                                                                <li>{{ comment.weakness|linebreaks }}</li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                            </div>
+
+                                                            <div class="footer">
+                                                                <div class="comments-likes">
+                                                                    آیا این نظر برایتان مفید بود؟
+                                                                    <button class="btn-like" data-counter="۱۱">بله
+                                                                    </button>
+                                                                    <button class="btn-like" data-counter="۶">خیر
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        <hr style='width:80%; border:1px solid #a0a0a0'>
+                                        {% endfor %}
+                                        <!-- #comment-## -->
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ah-tab-content dt-sl">
+                            <div class="section-title title-wide no-after-title-wide dt-sl">
+                                <h2>پرسش و پاسخ</h2>
+                                <p class="count-comment">پرسش خود را در مورد محصول مطرح نمایید</p>
+                            </div>
+                            <div class="form-question-answer dt-sl mb-3">
+                                <form action="">
+                                    <textarea class="form-control mb-3" rows="5"></textarea>
+                                    <button class="btn btn-dark float-right ml-3" disabled="">ثبت پرسش</button>
+                                    <div class="custom-control custom-checkbox float-right mt-2">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck3">
+                                        <label class="custom-control-label" for="customCheck3">اولین پاسخی که به
+                                            پرسش من داده شد، از طریق ایمیل به من اطلاع دهید.</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="comments-area default">
+                                <div
+                                    class="section-title text-sm-title title-wide no-after-title-wide mt-5 mb-0 dt-sl">
+                                    <h2>پرسش ها و پاسخ ها</h2>
+                                    <p class="count-comment">123 پرسش</p>
+                                </div>
+                                <ol class="comment-list">
+                                    <!-- #comment-## -->
+                                    <li>
+                                        <div class="comment-body">
+                                            <div class="comment-author">
+                                                <span class="icon-comment">?</span>
+                                                <cite class="fn">حسن</cite>
+                                                <span class="says">گفت:</span>
+                                                <div class="commentmetadata">
+                                                    <a href="#">
+                                                        اسفند ۲۰, ۱۳۹۶ در ۹:۴۱ ب.ظ
+                                                    </a>
+                                                </div>
+                                            </div>
+
+
+
+                                            <p>لورم ایپسوم متن ساختگی</p>
+
+                                            <div class="reply"><a class="comment-reply-link" href="#">پاسخ</a></div>
+                                        </div>
+                                    </li>
+                                    <!-- #comment-## -->
+                                    <li>
+                                        <div class="comment-body">
+                                            <div class="comment-author">
+                                                <span class="icon-comment">?</span>
+                                                <cite class="fn">رضا</cite>
+                                                <span class="says">گفت:</span>
+                                                <div class="commentmetadata">
+                                                    <a href="#">
+                                                        اسفند ۲۰, ۱۳۹۶ در ۹:۴۲ ب.ظ
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <p>
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
+                                                صنعت چاپ و با استفاده از طراحان گرافیک است.
+                                            </p>
+
+                                            <div class="reply"><a class="comment-reply-link" href="#">پاسخ</a></div>
+                                        </div>
+                                        <ol class="children">
+                                            <li>
+                                                <div class="comment-body">
+                                                    <div class="comment-author">
+                                                        <span
+                                                            class="icon-comment mdi mdi-lightbulb-on-outline"></span>
+                                                        <cite class="fn">بهرامی راد</cite> <span
+                                                            class="says">گفت:</span>
+                                                        <div class="commentmetadata">
+                                                            <a href="#">
+                                                                اسفند ۲۰, ۱۳۹۶ در ۹:۴۷ ب.ظ
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی
+                                                        نامفهوم از صنعت چاپ و با استفاده از
+                                                        طراحان گرافیک است.
+                                                        چاپگرها و متون بلکه روزنامه و مجله در
+                                                        ستون و سطرآنچنان که لازم است و برای
+                                                        شرایط فعلی تکنولوژی
+                                                        مورد نیاز و کاربردهای متنوع با هدف بهبود
+                                                        ابزارهای کاربردی می باشد.</p>
+
+                                                    <div class="reply"><a class="comment-reply-link" href="#">پاسخ</a></div>
+                                                </div>
+                                                <ol class="children">
+                                                    <li>
+                                                        <div class="comment-body">
+                                                            <div class="comment-author">
+                                                                <span class="icon-comment">?</span>
+                                                                <cite class="fn">محمد</cite>
+                                                                <span class="says">گفت:</span>
+                                                                <div class="commentmetadata">
+                                                                    <a href="#">
+                                                                        خرداد ۳۰, ۱۳۹۷ در ۸:۵۳ ق.ظ
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <p>عالیه</p>
+
+                                                            <div class="reply"><a class="comment-reply-link" href="#">پاسخ</a></div>
+                                                        </div>
+                                                        <ol class="children">
+                                                            <li>
+                                                                <div class="comment-body">
+                                                                    <div class="comment-author">
+                                                                        <span
+                                                                            class="icon-comment mdi mdi-lightbulb-on-outline"></span>
+                                                                        <cite class="fn">اشکان</cite>
+                                                                        <span class="says">گفت:</span>
+                                                                        <div class="commentmetadata">
+                                                                            <a href="#">
+                                                                                خرداد ۳۰, ۱۳۹۷ در ۸:۵۳ ق.ظ
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>لورم ایپسوم متن ساختگی با
+                                                                        تولید سادگی نامفهوم از
+                                                                        صنعت چاپ و با استفاده از
+                                                                        طراحان
+                                                                        گرافیک است. چاپگرها و
+                                                                        متون بلکه روزنامه و مجله
+                                                                        در ستون و سطرآنچنان که
+                                                                        لازم است و
+                                                                        برای شرایط فعلی تکنولوژی
+                                                                        مورد نیاز و کاربردهای
+                                                                        متنوع با هدف بهبود
+                                                                        ابزارهای
+                                                                        کاربردی می باشد.</p>
+
+                                                                    <div class="reply"><a class="comment-reply-link"
+                                                                            href="#">پاسخ</a>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <!-- #comment-## -->
+                                                        </ol>
+                                                        <!-- .children -->
+                                                    </li>
+                                                    <!-- #comment-## -->
+                                                </ol>
+                                                <!-- .children -->
+                                            </li>
+                                            <!-- #comment-## -->
+                                        </ol>
+                                        <!-- .children -->
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- End tabs -->
+            </div>
+            <!-- End Product -->
+        </div>
+    </main>
+    <!-- End main-content -->
+{% endblock MainContent %}

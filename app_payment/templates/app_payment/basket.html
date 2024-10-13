@@ -1,0 +1,140 @@
+{% extends "app_store/base.html" %}
+{% load static %}
+{% load humanize %}
+
+
+{% block pageTitle %}
+        Didikala | سبد خرید
+{% endblock pageTitle %}
+
+
+{% block MainContent %}
+    <!-- Start main-content -->
+    <main class="main-content dt-sl mb-3">
+        <div class="container main-container">
+            {% if basket_items %}
+
+                <div class="row mx-0">
+                    <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 mb-2">
+                        <nav class="tab-cart-page">
+                            <div class="nav nav-tabs border-bottom" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link d-inline-flex w-auto active" aria-selected="true">سبد خرید<span class="count-cart">1</span></a>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="col-12">
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <div class="row">
+                                    <div class="col-xl-9 col-lg-8 col-12 px-0">
+                                        <div class="table-responsive checkout-content dt-sl">
+                                            <div class="checkout-header checkout-header--express">
+                                                <span class="checkout-header-title">ارسال عادی</span>
+                                                <span class="checkout-header-extra-info">({{ total_items }} کالا)</span>
+                                            </div>
+                                            <div class="checkout-section-content-dd-k">
+                                                <div class="cart-items-dd-k">
+                                                    {% for item in basket_items %}
+                                                        <div class="cart-item py-4 px-3">
+                                                            <div class="item-thumbnail">
+                                                                <a href="{% url 'product_detail' item.product.id %}">
+                                                                    {% for image in item.product.images|slice:":1" %}
+                                                                        <img src="{{ image.image.url }}" alt="item">
+                                                                    {% endfor %}
+                                                                </a>
+                                                            </div>
+                                                            <div class="item-info flex-grow-1">
+                                                                <div class="item-title">
+                                                                    <h2>
+                                                                        <a href="{% url 'product_detail' item.product.id %}">{{ item.product.name_fa }}</a>
+                                                                    </h2>
+                                                                </div>
+                                                                <div class="item-detail">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <span class="color"
+                                                                                style="background-color: #9E9E9E;"></span>
+                                                                            <span>خاکستری</span>
+                                                                        </li>
+                                                                        
+                                                                        {% if item.product.Warranty_period %}
+                                                                           <li>
+                                                                                <i class="far fa-shield-check text-muted"></i>
+                                                                                <span>گارانتی {{ item.product.Warranty_period }} ماهه</span>
+                                                                            </li> 
+                                                                        {% endif %}
+                                                                            
+                                                                        
+                                                                        <li>
+                                                                            <i class="far fa-store-alt text-muted"></i>
+                                                                            <span>{{ item.product.seller }}</span>
+                                                                        </li>
+                                                                        <li>
+                                                                            <i class="far fa-clipboard-check text-primary"></i>
+                                                                            <span>موجود در انبار</span>
+                                                                        </li>
+                                                                    </ul>
+                                                                    <div class="item-quantity--item-price">
+                                                                        <div class="item-quantity">
+                                                                            <div class="num-block">
+                                                                                <div class="num-in">
+                                                                                    <a href="#">
+                                                                                        <span class="plus"></span>
+                                                                                    </a>
+                                                                                    <input type="text" class="in-num" value="{{ item.count }}" readonly>
+                                                                                    <a href="#">
+                                                                                        <span class="minus dis"></span>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <button class="item-remove-btn mr-3">
+                                                                                <i class="far fa-trash-alt"></i>
+                                                                                <a href="{% url 'remove_from_basket' item.id %}" style='color:#010101;'>حذف</a>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                        {% include "app_payment/includes/checkout-summary.html" %}
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                {% else %}
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="dt sl dt-sn dt-sn--box border pt-3 pb-5">
+                            <div class="cart-page cart-empty">
+                                <div class="circle-box-icon">
+                                    <i class="mdi mdi-cart-remove"></i>
+                                </div>
+                                <p class="cart-empty-title">سبد خرید شما خالیست!</p>
+                                <p>می‌توانید برای مشاهده محصولات بیشتر به صفحات زیر بروید:</p>
+                                <div class="cart-empty-links mb-5">
+                                    <a href="{% url 'favorites' %}" class="border-bottom-dt">لیست مورد علاقه من</a>
+                                    <a href="#" class="border-bottom-dt">محصولات شگفت‌انگیز</a>
+                                    <a href="#" class="border-bottom-dt">محصولات پرفروش روز</a>
+                                </div>
+                                <a href="{% url 'all_products' %}" class="btn-primary-cm">ادامه خرید در دیدیکالا</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+    <!-- End main-content -->
+{% endblock MainContent %}
+
+

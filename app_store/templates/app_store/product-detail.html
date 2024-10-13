@@ -1,0 +1,939 @@
+{% extends "app_store/base.html" %}
+{% load static %}
+{% load humanize %}
+
+
+{% block pageTitle %}
+            didikala | {{single_product.name_fa}}
+{% endblock pageTitle %}
+
+
+
+
+
+{% block ExtraCSS %}
+
+    <style>
+        
+        .mdi-heart{
+            color:#a6a6a6;
+        }
+
+        .mdi-heart:hover{
+            color:#ff0000;
+        }
+
+        .mdi-heart:active{
+            color:#ff0000;
+        }
+
+    </style>
+
+{% endblock ExtraCSS %}
+
+
+
+
+
+
+{% block MainContent %}
+    <!-- Start main-content -->
+    <main class="main-content dt-sl mb-3">
+        <div class="container main-container">
+            <!-- Start title - breadcrumb -->
+            <div class="title-breadcrumb-special dt-sl mb-3">
+                <div class="breadcrumb dt-sl">
+                    <nav>
+                        <a href="#">{{ single_product.category.first }}</a>
+                        {% if single_product.brand %}
+                            <a href="#">{{ single_product.category.sub_categories }}</a>
+                        {% endif %}
+                        {% if single_product.model %}
+                            <a href="#">مدل {{ single_product.model }}</a>
+                        {% endif %}
+                    </nav>
+                </div>
+            </div>
+            <!-- End title - breadcrumb -->
+            <!-- Start Product -->
+            <div class="dt-sn mb-5 dt-sl">
+                <div class="row">
+                    <!-- Product Gallery-->
+                    <div class="col-lg-4 col-md-6 ps-relative">
+                        <!-- Product Options-->
+                        <ul class="gallery-options">
+                            <li>
+                                <button class="add-favorites">
+                                    <a href="{% url 'add_to_favorite' single_product.id %}"><i class="mdi mdi-heart"></i></a>
+                                </button>
+                                <span class="tooltip-option">افزودن به علاقمندی</span>
+                            </li>
+                        </ul>
+                        <div class="product-timeout position-relative pt-5 mb-3">
+                            <div class="promotion-badge">
+                                فروش ویژه
+                            </div>
+                            <div class="countdown-timer" countdown data-date="10 24 2019 20:20:22">
+                                <span data-days>0</span>:
+                                <span data-hours>0</span>:
+                                <span data-minutes>0</span>:
+                                <span data-seconds>0</span>
+                            </div>
+                        </div>
+                        <div class="product-gallery">
+                            <span class="badge">پر فروش</span>
+                            <div class="product-carousel owl-carousel" data-slider-id="1">
+                                {% for image in single_product.images %}
+                                    <div class="item">
+                                        <a class="gallery-item" href="{{ image.image.url }}"
+                                            data-fancybox="gallery1">
+                                            <img src="{{ image.image.url }}" alt="Product">
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="d-flex justify-content-center flex-wrap">
+                                <ul class="product-thumbnails owl-thumbs ml-2" data-slider-id="1">
+                                    {% for image in single_product.images %}
+                                        <li class="owl-thumb-item active">
+                                            <a href="">
+                                                <img src="{{ image.image.url }}" alt="Product">
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Info -->
+                    <div class="col-lg-8 col-md-6 py-2">
+                        <div class="product-info dt-sl">
+                            <div class="product-title dt-sl mb-3">
+                                <h1>{{ single_product.name_fa }}
+                                </h1>
+                                {% if single_product.name_en %}
+                                    <h3>{{ single_product.name_en }}</h3>
+                                {% endif %}
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    {% if colors %}
+                                        <div class="product-variant dt-sl">
+                                            <div class="section-title text-sm-title title-wide no-after-title-wide mb-0">
+                                                <h2>انتخاب رنگ:</h2>
+                                            </div>
+                                            <ul class="product-variants float-right ml-3">
+                                                {% for color in colors %}
+                                                    <li class="ui-variant">
+                                                        <label class="ui-variant ui-variant--color">
+                                                            <span class="ui-variant-shape" style="background-color: #212121"></span>
+                                                            <input type="radio" value="1" name="color" class="variant-selector" checked>
+                                                            <span class="ui-variant--check">{{ color.color_name }}</span>
+                                                        </label>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    {% endif %}
+
+                                    <div class="product-params dt-sl">
+                                        <ul data-title="ویژگی‌های محصول">
+                                            {% if single_product.descriptions.all %}
+                                                {% for description in single_product.descriptions.all|slice:':4' %}
+                                                    <li>
+                                                        <span><b>{{ description.title }} : </b></span>
+                                                        <span> {{ description.description }}</span>
+                                                    </li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul>
+                                        <div class="sum-more">
+                                            <span class="show-more btn-link-border">
+                                                + موارد بیشتر
+                                            </span>
+                                            <span class="show-less btn-link-border">
+                                                - بستن
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="section-title text-sm-title title-wide no-after-title-wide mb-0 dt-sl">
+                                        <h2>کد محصول:{{ single_product.create_product_code }}</h2>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="product-guaranteed">
+                                        <i class="fas fa-badge-check"></i>
+                                        <p>بیش از ۴۳۰ نفر از خریداران این محصول را پیشنهاد داده‌اند</p>
+                                    </div>
+                                    <div class="product-summary">
+                                        <nav id="stack-menu">
+                                            <ul>
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="product-seller-row-main">
+                                                            <img src="{% static 'app_store/img/seller-logo.png' %}" alt="">
+                                                            <div class="product-seller-first-line">
+                                                                فروشنده:
+                                                                <span class="product-seller-name">دیدیکالا</span>
+                                                            </div>
+                                                            <div class="product-seller-second-line">
+                                                                عملکرد:
+                                                                <span class="font-weight-bold">۵</span>
+                                                                از ۵
+                                                                <span>
+                                                                    <span class="u-divider"></span>
+                                                                    <span class="font-weight-bold">۸۶.۶٪</span>
+                                                                    رضایت از کالا
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <ul class="product-seller-box--shadowed">
+                                                        <div class="product-info-box-body-wrapper">
+                                                            <div class="product-info-box-body">
+                                                                <div class="product-info-box-row font-weight-bold">
+                                                                    <span class="seller-name">دیدیکالا</span>
+                                                                </div>
+                                                                <div class="product-info-box-row">
+                                                                    عملکرد
+                                                                    <span
+                                                                        class="font-weight-bold u-text-big">۵</span>
+                                                                    از ۵
+                                                                    <div class="product-info-box-feedbacks">
+                                                                        <div class="product-feedback">
+                                                                            <div
+                                                                                class="product-feedback-percent product-feedback-percent--green">
+                                                                                ۱۰۰٪</div>
+                                                                            تامین به موقع
+                                                                        </div>
+                                                                        <div class="product-feedback">
+                                                                            <div
+                                                                                class="product-feedback-percent product-feedback-percent--green">
+                                                                                ۱۰۰٪</div>
+                                                                            تعهد ارسال
+                                                                        </div>
+                                                                        <div class="product-feedback">
+                                                                            <div
+                                                                                class="product-feedback-percent product-feedback-percent--green">
+                                                                                ۹۹.۹٪</div>
+                                                                            بدون مرجوعی
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="product-info-box-row">
+                                                                    <span
+                                                                        class="font-weight-bold u-text-big">۸۶.۶٪</span>
+                                                                    رضایت از کالا
+                                                                    <span class="text-secondary">
+                                                                        (<span>۲۱</span> نفر)
+                                                                    </span>
+                                                                    <div class="product-info-box-v-feedbacks">
+                                                                        <div class="product-v-feedback">
+                                                                            <div class="product-v-feedback-label">
+                                                                                کاملا راضی
+                                                                            </div>
+                                                                            <div class="product-v-feedback-bar">
+                                                                                <div style="width: 52.38%;"
+                                                                                    class="product-v-feedback-bar product-v-feedback-bar--very-green">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="product-v-feedback-percent">
+                                                                                ۵۲٪</div>
+                                                                        </div>
+                                                                        <div class="product-v-feedback">
+                                                                            <div class="product-v-feedback-label">
+                                                                                راضی
+                                                                            </div>
+                                                                            <div class="product-v-feedback-bar">
+                                                                                <div style="width: 33.33%;"
+                                                                                    class="product-v-feedback-bar product-v-feedback-bar--green">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="product-v-feedback-percent">
+                                                                                ۳۳٪</div>
+                                                                        </div>
+                                                                        <div class="product-v-feedback">
+                                                                            <div class="product-v-feedback-label">
+                                                                                نظری ندارم
+                                                                            </div>
+                                                                            <div class="product-v-feedback-bar">
+                                                                                <div style="width: 9.52%;"
+                                                                                    class="product-v-feedback-bar product-v-feedback-bar--yellow">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="product-v-feedback-percent">
+                                                                                ۱۰٪</div>
+                                                                        </div>
+                                                                        <div class="product-v-feedback">
+                                                                            <div class="product-v-feedback-label">
+                                                                                ناراضی
+                                                                            </div>
+                                                                            <div class="product-v-feedback-bar">
+                                                                                <div style="width: 4.76%;"
+                                                                                    class="product-v-feedback-bar product-v-feedback-bar--orange">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="product-v-feedback-percent">
+                                                                                ۵٪</div>
+                                                                        </div>
+                                                                        <div class="product-v-feedback">
+                                                                            <div class="product-v-feedback-label">
+                                                                                کاملا ناراضی
+                                                                            </div>
+                                                                            <div class="product-v-feedback-bar">
+                                                                                <div style="width: 0%;"
+                                                                                    class="product-v-feedback-bar product-v-feedback-bar--red">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="product-v-feedback-percent">
+                                                                                ۰٪</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </ul>
+                                                </li>
+                                                
+                                                {% if single_product.Warranty_period %}
+                                                    <li>
+                                                        <a>
+                                                            <i class="far fa-shield-check"></i>
+                                                            گارانتی {{ single_product.Warranty_period }} ماهه دیدیکالا
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+
+                                                <li>
+                                                    <a href="#">
+                                                        {% if single_product.count > 0 %}
+                                                            <i class="far fa-box-check product-delivery-warehouse"></i>
+                                                            موجود در انبار دیدیکالا
+                                                        {% else %}
+                                                            <i class="far fa-box-check product-delivery-warehouse"></i>
+                                                            نا موجود در انبار دیدیکالا                                            
+                                                        {% endif %}
+                                                    </a>
+                                                    <ul class="product-seller-box--shadowed">
+                                                        <div class="product-info-box-body-wrapper">
+                                                            <div class="product-info-box-body">
+                                                                <div class="shipment-info-box-row">
+                                                                    <div class="font-weight-bold">
+                                                                        <span>
+                                                                            آماده ارسال
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="u-text-spaced">
+                                                                        {% if single_product.count > 0 %}
+                                                                            این کالا در انبار دیدیکالا موجود و آماده
+                                                                            پردازش است.
+                                                                        {% else %}
+                                                                            این کالا در انبار دیدیکالا موجود نیست.
+                                                                        {% endif %}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                            <div class="product-seller-row product-seller-row--price">
+                                                
+                                                
+                                                {% if single_product.off_percent > 0 %}
+
+                                                    <div class="product-seller-price-info">
+                                                        <div class="product-seller-price-prev">
+                                                            {{ single_product.price|floatformat:0|intcomma:False }}
+                                                        </div>
+                                                        
+                                                        <div class="product-seller-price-off">
+                                                            {{ single_product.off_percent }}٪
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="product-seller-price-real">
+                                                        <div class="product-seller-price-raw">{{ single_product.get_final_price|floatformat:0|intcomma:False }} </div>
+                                                        تومان
+                                                    </div>
+
+                                                    <div
+                                                        class="product-additional-item product-additional-item--no-icon">
+                                                        <span>{{ single_product.get_reduce_price|floatformat:0|intcomma:False }}</span>&nbsp; تومان تخفیف سازمانی کسر گردیده است.
+                                                    </div>
+                                                
+                                                
+                                                {% else %}
+
+                                                    <div class="product-seller-price-real">
+                                                        <div class="product-seller-price-raw">{{single_product.price|floatformat:0|intcomma:False}} </div>
+                                                        تومان
+                                                    </div>
+
+                                                {% endif %}
+
+
+                                            </div>
+                                            <div class="product-seller-row product-seller-row--add-to-cart">
+                                                <a href="{% url 'add_to_basket' single_product.id %}" class="btn-add-to-cart btn-add-to-cart--full-width">
+                                                    <span class="btn-add-to-cart-txt">افزودن به سبد خرید</span>
+                                                </a>
+                                                <div class="product-seller-digiclub">
+                                                    <img src="{% static 'app_store/img/digiclub.png' %}" alt="">
+                                                    <div>
+                                                        دریافت
+                                                        <span>{{ single_product.product_score }}</span>
+                                                        امتیاز دیجی‌کلاب با خرید این کالا
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="other-seller">
+                                                <a href="#product-seller-all">
+                                                    <div class="product-seller-row-main">
+                                                        <span class="font-weight-bold">
+                                                            <span id="more-suppliers-count">۳</span>
+                                                            فروشنده
+                                                        </span>
+                                                        دیگر این کالا
+                                                    </div>
+                                                    <div class="product-seller-row-info">
+                                                        مشاهده
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!--  sellers -->
+            <div class="product-sellers shadow-around mb-5" id="product-seller-all">
+                <div class="product-seller">
+                    <div class="product-seller-col">
+                        <div class="product-seller-title">
+                            <div class="icon">
+                                <i class="fas fa-store-alt"></i>
+                            </div>
+                            <div class="detail">
+                                <div class="name">دیدیکالا <span
+                                        class="badge badge-light rounded-pill">برگزیده</span>
+                                </div>
+                                <div class="rating">
+                                    <span class="value">۹۰.۲٪</span>
+                                    <span class="label">رضایت خریداران</span>
+                                    <span class="divider">|</span>
+                                    <span class="label">عملکرد</span>
+                                    <span class="value">عالی</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-seller-col">
+                        <div class="product-seller-conditions">
+                            <div class="product-seller-info">
+                                <i class="fad fa-truck-container"></i>
+                                <span>ارسال از دیدیکالا</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-seller-col">
+                        <div class="product-seller-guarantee">
+                            <div class="product-seller-info">
+                                <i class="fad fa-shield-check"></i>
+                                <span>گارانتی ۱۸ ماهه دیدیکالا</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-seller-col">
+                        <div class="product-seller-price-action">
+                            <div class="product-seller-price">۵,۵۵۰,۰۰۰<span class="currency">تومان</span></div>
+                            <div class="product-seller-action"><a href="#" class="btn btn-outline-danger">افزودن به
+                                    سبد</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-seller">
+                    <div class="product-seller-col">
+                        <div class="product-seller-title">
+                            <div class="icon">
+                                <i class="fas fa-store-alt"></i>
+                            </div>
+                            <div class="detail">
+                                <div class="name">دیدیکالا <span
+                                        class="badge badge-light rounded-pill">برگزیده</span>
+                                </div>
+                                <div class="rating">
+                                    <span class="value">۹۰.۲٪</span>
+                                    <span class="label">رضایت خریداران</span>
+                                    <span class="divider">|</span>
+                                    <span class="label">عملکرد</span>
+                                    <span class="value">عالی</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-seller-col">
+                        <div class="product-seller-conditions">
+                            <div class="product-seller-info">
+                                <i class="fad fa-truck-container"></i>
+                                <span>ارسال از دیدیکالا</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-seller-col">
+                        <div class="product-seller-guarantee">
+                            <div class="product-seller-info">
+                                <i class="fad fa-shield-check"></i>
+                                <span>گارانتی ۱۸ ماهه دیدیکالا</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-seller-col">
+                        <div class="product-seller-price-action">
+                            <div class="product-seller-price">۵,۵۵۰,۰۰۰<span class="currency">تومان</span></div>
+                            <div class="product-seller-action"><a href="#" class="btn btn-outline-danger">افزودن به سبد</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dt-sn mb-5 px-0 dt-sl pt-0">
+                <!-- Start tabs -->
+                <section class="tabs-product-info mb-3 dt-sl">
+                    <div class="ah-tab-wrapper border-bottom dt-sl">
+                        <div class="ah-tab dt-sl">
+                            <a class="ah-tab-item" data-ah-tab-active="true" href=""><i
+                                    class="mdi mdi-glasses"></i>نقد و بررسی</a>
+                            <a class="ah-tab-item" href=""><i class="mdi mdi-format-list-checks"></i>مشخصات</a>
+                            <a class="ah-tab-item" href=""><i
+                                    class="mdi mdi-comment-text-multiple-outline"></i>نظرات کاربران</a>
+                            <a class="ah-tab-item" href=""><i class="mdi mdi-comment-question-outline"></i>پرسش و
+                                پاسخ</a>
+                        </div>
+                    </div>
+                    <div class="ah-tab-content-wrapper product-info px-4 dt-sl">
+                        <div class="ah-tab-content dt-sl" data-ah-tab-active="true">
+                            <div class="section-title text-sm-title title-wide no-after-title-wide mb-0 dt-sl">
+                                <h2>نقد و بررسی</h2>
+                            </div>
+                            <div class="product-title dt-sl">
+                                <h1>{{ single_product.name_fa }}</h1>
+                                {% if single_product.name_en %}
+                                    <h3>{{ single_product.name_en }}</h3>
+                                {% endif %}
+                            </div>
+                            <div class="description-product dt-sl mt-3 mb-3">
+                                <div class="container">
+                                    <p>{{ single_product.review }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ah-tab-content params dt-sl">
+                            <div class="section-title text-sm-title title-wide no-after-title-wide mb-0 dt-sl">
+                                <h2>مشخصات فنی</h2>
+                            </div>
+                            <div class="product-title dt-sl mb-3">
+                                <h1>{{ single_product.name_fa }} </h1>
+                                {% if single_product.name_en %}
+                                    <h3>{{ single_product.name_en }}</h3>
+                                {% endif %}
+                            </div>
+                            <br>
+                            <br>
+                            <section>
+                                <h3 class="params-title">مشخصات کلی</h3>
+                                <ul class="params-list">
+                                    {% for description in single_product.descriptions.all %}
+                                        <li>
+                                            <div class="params-list-key">
+                                                <span class="d-block "><b>{{ description.title }}</b></span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span class="d-block" >
+                                                    <p style='line-height:5; margin-top:0%;'>{{ description.description|linebreaksbr }}</p>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </section>
+                        </div>
+                        <div class="ah-tab-content comments-tab dt-sl">
+                            <div class="section-title title-wide no-after-title-wide mb-0 dt-sl">
+                                <h2>امتیاز کاربران به:</h2>
+                            </div>
+                            <div class="product-title dt-sl mb-3">
+                                <h1>{{ single_product.name_fa }}</h1>
+                                <h3>{{ single_product.name_en }}<span
+                                        class="rate-product">(4 از 5 | 15 نفر)</span></h3>
+                            </div>
+                            <div class="dt-sl">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <ul class="content-expert-rating">
+                                            <li>
+                                                <div class="cell">طراحی</div>
+                                                <div class="cell">
+                                                    <div class="rating rating--general" data-rate-digit="عالی">
+                                                        <div class="rating-rate" data-rate-value="100%"
+                                                            style="width: 70%;"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="cell">ارزش خرید</div>
+                                                <div class="cell">
+                                                    <div class="rating rating--general" data-rate-digit="عالی">
+                                                        <div class="rating-rate" data-rate-value="100%"
+                                                            style="width: 20%;"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="cell">کیفیت ساخت</div>
+                                                <div class="cell">
+                                                    <div class="rating rating--general" data-rate-digit="عالی">
+                                                        <div class="rating-rate" data-rate-value="100%"
+                                                            style="width: 100%;"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="cell">صدای مزاحم</div>
+                                                <div class="cell">
+                                                    <div class="rating rating--general" data-rate-digit="عالی">
+                                                        <div class="rating-rate" data-rate-value="100%"
+                                                            style="width: 100%;"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="cell">مصرف انرژی و آب</div>
+                                                <div class="cell">
+                                                    <div class="rating rating--general" data-rate-digit="عالی">
+                                                        <div class="rating-rate" data-rate-value="100%"
+                                                            style="width: 100%;"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="cell">امکانات و قابلیت ها</div>
+                                                <div class="cell">
+                                                    <div class="rating rating--general" data-rate-digit="عالی">
+                                                        <div class="rating-rate" data-rate-value="100%"
+                                                            style="width: 100%;"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="comments-summary-note">
+                                            <span>شما هم می‌توانید در مورد این کالا نظر
+                                                بدهید.</span>
+                                            <p>برای ثبت نظر، لازم است ابتدا وارد حساب کاربری خود
+                                                شوید. اگر این محصول را قبلا از دیجی‌کالا خریده
+                                                باشید، نظر
+                                                شما به عنوان مالک محصول ثبت خواهد شد.
+                                            </p>
+                                            <div class="dt-sl mt-2">
+                                                <a href="{% url 'add_comment' single_product.id %}" class="btn-primary-cm btn-with-icon">
+                                                    <i class="mdi mdi-comment-text-outline"></i>
+                                                    افزودن نظر جدید
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="comments-area dt-sl">
+                                    <div
+                                        class="section-title text-sm-title title-wide no-after-title-wide mb-0 dt-sl">
+                                        {% if comments %}
+                                            <h2>نظرات کاربران</h2>
+                                            <p class="count-comment">{% with comments.count as count %} {{ count }} {% endwith %} نظر</p>
+                                        {% else %}
+                                            <p class="count-comment">هیچ نظری ثبت نشده است</p>
+                                        {% endif %}
+                                    </div>
+                                    <ol class="comment-list">
+                                        <!-- #comment-## -->
+                                        {% for comment in comments %}
+                                            <li>
+                                                <div class="comment-body">
+                                                    <div class="row">
+                                                        <div class="col-md-3 col-sm-12">
+                                                            <div class="message-light message-light--purchased"> خریدار این محصول</div>
+                                                            <ul class="comments-user-shopping">
+                                                                <li>
+                                                                    <div class="cell">رنگ خریداری شده:</div>
+                                                                    <div class="cell color-cell">
+                                                                        <span class="shopping-color-value" style="background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.25)"></span>سفید
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="cell">خریداری شده از:</div>
+                                                                    <div class="cell seller-cell">
+                                                                        <span class="o-text-blue">{{ single_product.seller }}</span>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                            {% if comment.is_suggest %}
+                                                                <div class="message-light message-light--opinion-positive"> خرید این محصول را توصیه می‌کنم</div>
+                                                            {% else %}
+                                                                <div class="message-light message-light--opinion-negative"> خرید این محصول را توصیه می‌کنم</div>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="col-md-9 col-sm-12 comment-content">
+                                                            <div class="comment-title">
+                                                                {{ comment.title }}
+                                                            </div>
+                                                            <div class="comment-author">
+                                                                توسط {{ comment.user.first_name }} {{ comment.user.last_name }} در تاریخ {{ comment.created_date }}
+                                                            </div>
+                                                            
+                                                            <p>{{ comment.body }}</p>
+
+                                                            <div class="row">
+                                                                {% if comment.strength %}
+                                                                    <div class="col-md-4 col-sm-6 col-12">
+                                                                        <div class="content-expert-evaluation-positive">
+                                                                            <span>نقاط قوت</span>
+                                                                            <ul>
+                                                                                <li>{{ comment.strength|linebreaks }}</li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if comment.weakness %}
+                                                                    <div class="col-md-4 col-sm-6 col-12">
+                                                                        <div class="content-expert-evaluation-negative">
+                                                                            <span>نقاط ضعف</span>
+                                                                            <ul>
+                                                                                <li>{{ comment.weakness|linebreaks }}</li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                            </div>
+
+                                                            <div class="footer">
+                                                                <div class="comments-likes">
+                                                                    آیا این نظر برایتان مفید بود؟
+                                                                    <form method="POST" action="{% url 'vote_comment' single_product.id comment.id %}">
+                                                                        {% csrf_token %}
+                                                                        <button class="btn-like" type="submit" name="is_useful" value="true">بله   {{ comment.like_count }}</button>
+                                                                        <button class="btn-like" type="submit" name="is_useful" value="false">خیر  {{ comment.dislike_count }}</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        <hr style='width:80%; border:1px solid #a0a0a0'>
+                                        {% endfor %}
+                                        <!-- #comment-## -->
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ah-tab-content dt-sl">
+                            <div class="section-title title-wide no-after-title-wide dt-sl">
+                                <h2>پرسش و پاسخ</h2>
+                                <p class="count-comment">پرسش خود را در مورد محصول مطرح نمایید</p>
+                            </div>
+                            <div class="form-question-answer dt-sl mb-3">
+                                <form action="">
+                                    <textarea class="form-control mb-3" rows="5"></textarea>
+                                    <button class="btn btn-dark float-right ml-3" disabled="">ثبت پرسش</button>
+                                    <div class="custom-control custom-checkbox float-right mt-2">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck3">
+                                        <label class="custom-control-label" for="customCheck3">اولین پاسخی که به
+                                            پرسش من داده شد، از طریق ایمیل به من اطلاع دهید.</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="comments-area default">
+                                <div
+                                    class="section-title text-sm-title title-wide no-after-title-wide mt-5 mb-0 dt-sl">
+                                    <h2>پرسش ها و پاسخ ها</h2>
+                                    <p class="count-comment">123 پرسش</p>
+                                </div>
+                                <ol class="comment-list">
+                                    <!-- #comment-## -->
+                                    <li>
+                                        <div class="comment-body">
+                                            <div class="comment-author">
+                                                <span class="icon-comment">?</span>
+                                                <cite class="fn">حسن</cite>
+                                                <span class="says">گفت:</span>
+                                                <div class="commentmetadata">
+                                                    <a href="#">
+                                                        اسفند ۲۰, ۱۳۹۶ در ۹:۴۱ ب.ظ
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <p>لورم ایپسوم متن ساختگی</p>
+
+                                            <div class="reply"><a class="comment-reply-link" href="#">پاسخ</a></div>
+                                        </div>
+                                    </li>
+                                    <!-- #comment-## -->
+                                    <li>
+                                        <div class="comment-body">
+                                            <div class="comment-author">
+                                                <span class="icon-comment">?</span>
+                                                <cite class="fn">رضا</cite>
+                                                <span class="says">گفت:</span>
+                                                <div class="commentmetadata">
+                                                    <a href="#">
+                                                        اسفند ۲۰, ۱۳۹۶ در ۹:۴۲ ب.ظ
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <p>
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
+                                                صنعت چاپ و با استفاده از طراحان گرافیک است.
+                                            </p>
+
+                                            <div class="reply"><a class="comment-reply-link" href="#">پاسخ</a></div>
+                                        </div>
+                                        <ol class="children">
+                                            <li>
+                                                <div class="comment-body">
+                                                    <div class="comment-author">
+                                                        <span
+                                                            class="icon-comment mdi mdi-lightbulb-on-outline"></span>
+                                                        <cite class="fn">بهرامی راد</cite> <span
+                                                            class="says">گفت:</span>
+                                                        <div class="commentmetadata">
+                                                            <a href="#">
+                                                                اسفند ۲۰, ۱۳۹۶ در ۹:۴۷ ب.ظ
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی
+                                                        نامفهوم از صنعت چاپ و با استفاده از
+                                                        طراحان گرافیک است.
+                                                        چاپگرها و متون بلکه روزنامه و مجله در
+                                                        ستون و سطرآنچنان که لازم است و برای
+                                                        شرایط فعلی تکنولوژی
+                                                        مورد نیاز و کاربردهای متنوع با هدف بهبود
+                                                        ابزارهای کاربردی می باشد.</p>
+
+                                                    <div class="reply"><a class="comment-reply-link"
+                                                            href="#">پاسخ</a></div>
+                                                </div>
+                                                <ol class="children">
+                                                    <li>
+                                                        <div class="comment-body">
+                                                            <div class="comment-author">
+                                                                <span class="icon-comment">?</span>
+                                                                <cite class="fn">محمد</cite>
+                                                                <span class="says">گفت:</span>
+                                                                <div class="commentmetadata">
+                                                                    <a href="#">
+                                                                        خرداد ۳۰, ۱۳۹۷ در ۸:۵۳ ق.ظ
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <p>عالیه</p>
+
+                                                            <div class="reply"><a class="comment-reply-link"
+                                                                    href="#">پاسخ</a></div>
+                                                        </div>
+                                                        <ol class="children">
+                                                            <li>
+                                                                <div class="comment-body">
+                                                                    <div class="comment-author">
+                                                                        <span
+                                                                            class="icon-comment mdi mdi-lightbulb-on-outline"></span>
+                                                                        <cite class="fn">اشکان</cite>
+                                                                        <span class="says">گفت:</span>
+                                                                        <div class="commentmetadata">
+                                                                            <a href="#">
+                                                                                خرداد ۳۰, ۱۳۹۷ در ۸:۵۳ ق.ظ
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p>لورم ایپسوم متن ساختگی با
+                                                                        تولید سادگی نامفهوم از
+                                                                        صنعت چاپ و با استفاده از
+                                                                        طراحان
+                                                                        گرافیک است. چاپگرها و
+                                                                        متون بلکه روزنامه و مجله
+                                                                        در ستون و سطرآنچنان که
+                                                                        لازم است و
+                                                                        برای شرایط فعلی تکنولوژی
+                                                                        مورد نیاز و کاربردهای
+                                                                        متنوع با هدف بهبود
+                                                                        ابزارهای
+                                                                        کاربردی می باشد.</p>
+
+                                                                    <div class="reply"><a class="comment-reply-link"
+                                                                            href="#">پاسخ</a>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <!-- #comment-## -->
+                                                        </ol>
+                                                        <!-- .children -->
+                                                    </li>
+                                                    <!-- #comment-## -->
+                                                </ol>
+                                                <!-- .children -->
+                                            </li>
+                                            <!-- #comment-## -->
+                                        </ol>
+                                        <!-- .children -->
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- End tabs -->
+            </div>
+            <!-- End Product -->
+        </div>
+    </main>
+    <!-- End main-content -->
+{% endblock MainContent %}
+
+
+
+
+{% block ExtraJS %}
+
+    <script>
+        document.querySelectorAll('.like-button, .dislike-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const commentId = this.getAttribute('data-id');
+                const action = this.getAttribute('data-action') === 'like' ? 'true' : 'false';
+
+                fetch(`/vote-comment/${commentId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `is_useful=${action}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        alert(data.message);
+                        // Refresh the page or update the like/dislike counts dynamically
+                    }
+                });
+            });
+        });
+    </script>
+
+{% endblock ExtraJS %}

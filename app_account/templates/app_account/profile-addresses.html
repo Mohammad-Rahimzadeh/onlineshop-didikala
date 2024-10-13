@@ -1,0 +1,173 @@
+{% extends "app_store/base.html" %}
+{% load static %}
+{% load humanize %}
+
+
+{% block pageTitle %}
+    Didikala | {{ user.username }} Addresses
+{% endblock pageTitle %}
+
+
+
+{% block MainContent %}
+    <!-- Start main-content -->
+    <main class="main-content dt-sl mb-3">
+        <div class="container main-container">
+            <div class="row">
+                <!-- Start Sidebar -->
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 sticky-sidebar">
+                    <div class="profile-sidebar dt-sl">
+                        <div class="dt-sl dt-sn border mb-3">
+                            <div class="profile-sidebar-header dt-sl">
+                                <div class="d-flex align-items-center">
+                                    <div class="profile-avatar">
+                                        <img src="{{ user.profile.image.url }}" alt="">
+                                    </div>
+                                    <div class="profile-header-content mr-3 mt-2">
+                                        <span class="d-block profile-username">{{ user.get_full_name }}</span>
+                                        <span class="d-block profile-phone">{{ user.profile.phone_number }}</span>
+                                    </div>
+                                </div>
+                                <div class="profile-point mt-3 mb-2 dt-sl">
+                                    <span class="label-profile-point">امتیاز شما:</span>
+                                    <span class="float-left value-profile-point">{{ user.profile.user_score }}</span>
+                                </div>
+                                <div class="profile-link mt-2 dt-sl">
+                                    <div class="row">
+                                        <div class="col-6 text-center">
+                                            <a href="{% url 'change_password' %}">
+                                                <i class="mdi mdi-lock-reset"></i>
+                                                <span class="d-block">تغییر رمز</span>
+                                            </a>
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <a href="{% url 'logout' %}">
+                                                <i class="mdi mdi-logout-variant"></i>
+                                                <span class="d-block">خروج از حساب</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dt-sl dt-sn border mb-3">
+                            <div class="profile-menu-section dt-sl">
+                                <div class="label-profile-menu mt-2 mb-2">
+                                    <span>حساب کاربری شما</span>
+                                </div>
+                                <div class="profile-menu">
+                                    <ul>
+                                        <li>
+                                            <a href="{% url 'profile' %}" class="alert alert-danger">
+                                                <i class="mdi mdi-account-circle-outline"></i>
+                                                پروفایل
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="alert alert-danger">
+                                                <i class="mdi mdi-basket"></i>
+                                                همه سفارش ها
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="alert alert-danger">
+                                                <i class="mdi mdi-backburger"></i>
+                                                درخواست مرجوعی
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'favorites' %}" class="alert alert-danger">
+                                                <i class="mdi mdi-heart-outline"></i>
+                                                لیست علاقمندی ها
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'comments' %}" class="alert alert-danger">
+                                                <i class="mdi mdi-glasses"></i>
+                                                نقد و نظرات
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'addresses' %}" class="alert alert-danger active">
+                                                <i class="mdi mdi-sign-direction"></i>
+                                                آدرس ها
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="alert alert-danger">
+                                                <i class="mdi mdi-eye-outline"></i>
+                                                بازدیدهای اخیر
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'personal-info' %}" class="alert alert-danger">
+                                                <i class="mdi mdi-account-edit-outline"></i>
+                                                اطلاعات شخصی
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Sidebar -->
+                <!-- Start Content -->
+                <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div
+                                class="section-title text-sm-title title-wide mb-1 no-after-title-wide dt-sl mb-2 px-res-1">
+                                <h2>آدرس ها</h2>
+                            </div>
+                            <div class="dt-sl">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-12">
+                                        <div class="card-horizontal-address text-center px-4">
+                                            <a class="checkout-address-location" href="{% url 'add_address' %}">
+                                                <strong>ایجاد آدرس جدید</strong>
+                                                <i class="mdi mdi-map-marker-plus"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    {% for address in profile_addresses %}
+                                        <div class="col-lg-6 col-md-12">
+                                            <div class="card-horizontal-address">
+                                                <div class="card-horizontal-address-desc">
+                                                    <h4 class="card-horizontal-address-full-name">{{ user.get_full_name }}</h4>
+                                                    <p>
+                                                        {{ address.state }}، {{ address.city }}، {{ address.description }}
+                                                    </p>
+                                                </div>
+                                                <div class="card-horizontal-address-data">
+                                                    <ul class="card-horizontal-address-methods float-right">
+                                                        <li class="card-horizontal-address-method">
+                                                            <i class="mdi mdi-email-outline"></i>
+                                                            کدپستی : <span>{{ address.postal_code }}</span>
+                                                        </li>
+                                                        <li class="card-horizontal-address-method">
+                                                            <i class="mdi mdi-cellphone-iphone"></i>
+                                                            تلفن همراه : <span>{{ profile.phone_number }}</span>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="card-horizontal-address-actions">
+                                                        <a class="btn-note" href="{% url 'edit_address' address.id %}">ویرایش</a>
+                                                        <a class="btn-note" href="{% url 'delete_address' address.id %}">حذف</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Content -->
+            </div>
+        </div>
+    </main>
+    <!-- End main-content -->
+
+{% endblock MainContent %}

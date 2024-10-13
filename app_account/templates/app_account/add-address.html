@@ -1,0 +1,98 @@
+{% extends "app_store/base.html" %}
+{% load static %}
+
+{% block pageTitle %}
+    Add Address | {{ user.username }}
+{% endblock pageTitle %}
+
+
+
+{% block ExtraCSS %}
+
+<style>
+    .form-section{
+        margin-right: 2%;
+        margin-bottom: 5%;
+        width: 30%;
+    }
+    small{
+        color:red;
+    }
+
+</style>
+
+
+{% endblock ExtraCSS %}
+
+
+
+{% block MainContent %}
+
+    <!-- Start Content -->
+    <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12" style='margin-top:15%; margin-bottom:10%;'>
+        <div class="row">
+            <div class="col-12">
+                <div class="px-3 px-res-0">
+                    <div
+                        class="section-title text-sm-title title-wide mb-1 no-after-title-wide dt-sl mb-2 px-res-1">
+                        <h2>افزودن آدرس جدید</h2>
+                    </div>
+                    <div class="form-ui additional-info dt-sl dt-sn pt-4">
+                        <form method='POST' class="form">
+                            {% csrf_token %}
+                            
+                            
+                            <div class="row form-row">
+                                <div class="col-md-3 form-section">
+                                    <div class="row form-row">
+                                        <label for="state">استان</label>
+                                    </div>
+                                    <input type="text" class='form-control' placeholder="استان محل زندگی خود را وارد کنید." name="state" maxlength="255" required="" id="id_state">
+                                </div>
+                                <div class="col-md-3 form-section">
+                                    <div class="row form-row">
+                                        <label for="city">شهر</label>
+                                    </div>
+                                    <input type="text" class='form-control' placeholder="شهر محل زندگی خود را وارد کنید." name="city" maxlength="255" required="" id="id_city">
+                                </div>
+                            </div>
+
+                            <div class="row form-row">
+                                <div class="col-md-3 form-section">
+                                    <div class="row form-row">
+                                        <label for="state">کد پستی</label>
+                                    </div>
+                                    <input type="number" class='form-control' placeholder="کد پستی خود را وارد کنید" name="postal_code" maxlength="255" required="" id="id_postal_code">
+                                    <small>فقط کاراکترهای 0 تا 9 مورد قبول است</small>
+                                </div>
+                                
+                                <div class="col-md-3 form-section">
+                                    <div class="row form-row">
+                                        <label for="city">توضیحات</label>
+                                    </div>
+                                    <input type='text' name="description" placeholder="آدرس را به طور کامل وارد کنید." class='form-control' cols="21" rows="1" required="" id="id_description"></textarea>
+                                </div>
+                            </div>
+
+
+                            <div class="dt-sl">
+                                <div class="form-row mt-3 justify-content-end">
+                                    <button type='submit' class="btn-primary-cm btn-with-icon ml-2">
+                                        <i class="mdi mdi-account-circle-outline"></i>
+                                        افزودن آدرس
+                                    </button>
+                                    <a href="{% url 'addresses' %}" class="btn-primary-cm bg-secondary">بازگشت</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Content -->
+
+
+{% endblock MainContent %}
+    
+

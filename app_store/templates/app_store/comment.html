@@ -1,0 +1,8 @@
+{% if user.is_authenticated %}
+    <form action="" method="post">
+        {% csrf_token %}
+    
+        {{ comment_form.as_p }}
+        <input type="submit" value="ثبت نظر">
+    </form>
+{% endif %}

@@ -1,0 +1,198 @@
+{% extends "app_store/base.html" %}
+{% load static %}
+{% load humanize %}
+
+
+{% block pageTitle %}
+    Didikala | {{ user.username }} Favorites
+{% endblock pageTitle %}
+
+{% block ExtraCSS %}
+
+<style>
+    .product-not-found{
+        text-align:center;
+        margin-bottom:10%;
+    }
+</style>
+
+{% endblock ExtraCSS %}
+
+
+{% block MainContent %}
+    <!-- Start main-content -->
+    <main class="main-content dt-sl mb-3">
+        <div class="container main-container">
+            <div class="row">
+                <!-- Start Sidebar -->
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 sticky-sidebar">
+                    <div class="profile-sidebar dt-sl">
+                        <div class="dt-sl dt-sn border mb-3">
+                            <div class="profile-sidebar-header dt-sl">
+                                <div class="d-flex align-items-center">
+                                    <div class="profile-avatar">
+                                        <img src="{{ user.profile.image.url }}" alt="">
+                                    </div>
+                                    <div class="profile-header-content mr-3 mt-2">
+                                        <span class="d-block profile-username">{{ user.get_full_name }}</span>
+                                        <span class="d-block profile-phone">{{ user.profile.phone_number }}</span>
+                                    </div>
+                                </div>
+                                <div class="profile-point mt-3 mb-2 dt-sl">
+                                    <span class="label-profile-point">امتیاز شما:</span>
+                                    <span class="float-left value-profile-point">{{ user.profile.user_score }}</span>
+                                </div>
+                                <div class="profile-link mt-2 dt-sl">
+                                    <div class="row">
+                                        <div class="col-6 text-center">
+                                            <a href="{% url 'change_password' %}">
+                                                <i class="mdi mdi-lock-reset"></i>
+                                                <span class="d-block">تغییر رمز</span>
+                                            </a>
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <a href="{% url 'logout' %}">
+                                                <i class="mdi mdi-logout-variant"></i>
+                                                <span class="d-block">خروج از حساب</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dt-sl dt-sn border mb-3">
+                            <div class="profile-menu-section dt-sl">
+                                <div class="label-profile-menu mt-2 mb-2">
+                                    <span>حساب کاربری شما</span>
+                                </div>
+                                <div class="profile-menu">
+                                    <ul>
+                                        <li>
+                                            <a href="{% url 'profile' %}"  class="alert alert-danger">
+                                                <i class="mdi mdi-account-circle-outline"></i>
+                                                پروفایل
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#"  class="alert alert-danger">
+                                                <i class="mdi mdi-basket"></i>
+                                                همه سفارش ها
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#"  class="alert alert-danger">
+                                                <i class="mdi mdi-backburger"></i>
+                                                درخواست مرجوعی
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'favorites' %}" class="alert alert-danger active">
+                                                <i class="mdi mdi-heart-outline"></i>
+                                                لیست علاقمندی ها
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'comments' %}" class="alert alert-danger">
+                                                <i class="mdi mdi-glasses"></i>
+                                                نقد و نظرات
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'addresses' %}" class="alert alert-danger">
+                                                <i class="mdi mdi-sign-direction"></i>
+                                                آدرس ها
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="alert alert-danger">
+                                                <i class="mdi mdi-eye-outline"></i>
+                                                بازدیدهای اخیر
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'personal-info' %}" class="alert alert-danger">
+                                                <i class="mdi mdi-account-edit-outline"></i>
+                                                اطلاعات شخصی
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Sidebar -->
+                <!-- Start Content -->
+                <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div
+                                class="section-title text-sm-title title-wide mb-1 no-after-title-wide dt-sl mb-2 px-res-1">
+                                <h2>علاقمندی ها</h2>
+                            </div>
+                            <div class="dt-sl">
+                                <div class="row">
+                                    {% if favorite_products %}
+                                        {% for item in favorite_products %}
+                                            <div class="col-lg-6 col-md-12">
+                                                <div class="card-horizontal-product border-bottom rounded-0">
+                                                    <div class="card-horizontal-product-thumb">
+                                                        <a href="{% url 'product_detail' item.product.id %}">
+                                                            {% for image in item.product.images|slice:":1" %}
+                                                                <img src="{{ image.image.url }}" alt="item">
+                                                            {% endfor %}
+                                                        </a>
+                                                    </div>
+                                                    <div class="card-horizontal-product-content">
+                                                        <div class="card-horizontal-product-title">
+                                                            <a href="{% url 'product_detail' item.product.id %}">
+                                                                <h3>{{ item.product.name_fa }}</h3>
+                                                            </a>
+                                                        </div>
+                                                        <div class="rating-stars">
+                                                            <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star active"></i>
+                                                            <i class="mdi mdi-star"></i>
+                                                        </div>
+                                                        <div class="card-horizontal-product-price">
+                                                            <span>{{ item.product.get_final_price|floatformat|intcomma:False }} تومان</span>
+                                                        </div>
+                                                        <div class="card-horizontal-product-buttons">
+                                                            <a href="{% url 'product_detail' item.product.id %}" class="btn">مشاهده محصول</a>
+                                                            <button class="remove-btn">
+                                                                <a href="{% url 'remove_from_favorite' item.id %}">
+                                                                    <i class="mdi mdi-trash-can-outline" style='color:#aeaeae;'></i>
+                                                                </a>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                            <div class="cart-page cart-empty">
+                                                <div class="circle-box-icon">
+                                                    <i class="mdi mdi-heart"></i>
+                                                </div>
+                                                <p class="cart-empty-title">لیست کالاهای مورد علاقه شما خالیست!</p>
+                                                <div class="cart-empty-links mb-5">
+                                                    <a href="{% url 'basket_view' %}" class="border-bottom-dt"> مشاهده سبد خرید</a>
+                                                    <a href="#" class="border-bottom-dt">محصولات شگفت‌انگیز</a>
+                                                    <a href="#" class="border-bottom-dt">محصولات پرفروش روز</a>
+                                                </div>
+                                                <a href="{% url 'all_products' %}" class="btn-primary-cm">ادامه خرید در دیدیکالا</a>
+                                            </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Content -->
+            </div>
+        </div>
+    </main>
+    <!-- End main-content -->
+{% endblock MainContent %}

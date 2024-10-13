@@ -1,0 +1,73 @@
+{% load static %}
+{% load humanize %}
+
+
+<div class="col-xl-3 col-lg-4 col-12 w-res-sidebar sticky-sidebar">
+    <div class="dt-sn dt-sn--box border mb-2">
+        <ul class="checkout-summary-summary">
+            <li>
+                <span>مبلغ کل ({{ total_items }} کالا)</span><span>{{ total_price|floatformat:0|intcomma:False }} تومان</span>
+            </li>
+            <li class="checkout-summary-discount">
+                <span>سود شما از خرید</span><span><span>(۱٪)</span>۲۰۰,۰۰۰
+                    تومان</span>
+            </li>
+            <li>
+                <span>هزینه ارسال<span class="help-sn" data-toggle="tooltip"
+                        data-html="true" data-placement="bottom"
+                        title="<div class='help-container is-right'><div class='help-arrow'></div><p class='help-text'>هزینه ارسال مرسولات می‌تواند وابسته به شهر و آدرس گیرنده متفاوت باشد. در صورتی که هر یک از مرسولات حداقل ارزشی برابر با ۱۵۰هزار تومان داشته باشد، آن مرسوله بصورت رایگان ارسال می‌شود.<br>'حداقل ارزش هر مرسوله برای ارسال رایگان، می تواند متغیر باشد.'</p></div>">
+                        <span class="mdi mdi-information-outline"></span>
+                    </span></span><span>وابسته به آدرس</span>
+            </li>
+            <li class="checkout-club-container">
+                <span>دیدیکلاب<span class="help-sn" data-toggle="tooltip"
+                        data-html="true" data-placement="bottom"
+                        title="<div class='help-container is-right'><div class='help-arrow'></div><p class='help-text'>با امتیازهای خود در باشگاه مشتریان دیجی کالا (دیجی کلاب) از بین جوایز متنوع انتخاب کنید.</p></div>">
+                        <span class="mdi mdi-information-outline"></span>
+                    </span></span><span><span>{{ total_score }}+</span><span> امتیاز</span></span>
+            </li>
+        </ul>
+        <div class="checkout-summary-devider">
+            <div></div>
+        </div>
+        <div class="checkout-summary-content">
+            <div class="checkout-summary-price-title">مبلغ قابل پرداخت:</div>
+            <div class="checkout-summary-price-value">
+                <span class="checkout-summary-price-value-amount">{{ total_price|floatformat:0|intcomma:False }}</span>
+                تومان
+            </div>
+            <a href="{% url 'checkout_view' %}" class="mb-2 d-block">
+                <button class="btn-primary-cm btn-with-icon w-100 text-center pr-0">
+                    <i class="mdi mdi-arrow-left"></i>
+                    ادامه ثبت سفارش
+                </button>
+            </a>
+            <div>
+                <span>
+                    کالاهای موجود در سبد شما ثبت و رزرو نشده‌اند، برای ثبت سفارش
+                    مراحل بعدی را تکمیل کنید.
+                </span><span class="help-sn" data-toggle="tooltip" data-html="true"
+                    data-placement="bottom"
+                    title="<div class='help-container is-right'><div class='help-arrow'></div><p class='help-text'>محصولات موجود در سبد خرید شما تنها در صورت ثبت و پرداخت سفارش برای شما رزرو می‌شوند. در صورت عدم ثبت سفارش، دیجی‌کالا هیچگونه مسئولیتی در قبال تغییر قیمت یا موجودی این کالاها ندارد.</p></div>">
+                    <span class="mdi mdi-information-outline"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="dt-sn dt-sn--box checkout-feature-aside pt-4">
+        <ul>
+            <li class="checkout-feature-aside-item">
+                <img src="{% static 'app_store/img/svg/return-policy.svg' %}" alt="">
+                هفت روز ضمانت تعویض
+            </li>
+            <li class="checkout-feature-aside-item">
+                <img src="{% static 'app_store/img/svg/payment-terms.svg' %}" alt="">
+                پرداخت در محل با کارت بانکی
+            </li>
+            <li class="checkout-feature-aside-item">
+                <img src="{% static 'app_store/img/svg/delivery.svg' %}" alt="">
+                تحویل اکسپرس
+            </li>
+        </ul>
+    </div>
+</div>

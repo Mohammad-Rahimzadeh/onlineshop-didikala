@@ -1,0 +1,32 @@
+{% extends "app_account/base.html" %}
+{% load static %}
+
+{% block MainContent %}
+
+    <div class="auth-wrapper form-ui border pt-4">
+        <div class="section-title title-wide mb-1 pb-0 no-after-title-wide">
+            <h2 class="font-weight-bold">به دیدیکالا خوش آمدید</h2>
+        </div>
+        <div class="circle-box-icon">
+            <i class="mdi mdi-account-circle-outline"></i>
+        </div>
+        <h5 class="text-center font-weight-bold">حساب کاربری شما در دیدیکالا ساخته شد</h5>
+        <div class="message-light">
+            اکنون می‌توانید به صفحه‌ای که در آن بودید بازگردید و یا با تکمیل اطلاعات حساب کاربری خود
+            به کلیه امکانات و سرویس‌های تاپ کالا و سرویس‌های وابسته به آن دسترسی داشته باشید
+        </div>
+        <div class="text-center mt-5 mb-4">
+            <a href="{% url 'profile' %}" class="btn-primary-cm btn-with-icon">
+                <i class="mdi mdi-account-circle-outline"></i>
+                مشاهده پروفایل
+            </a>
+        </div>
+        <div class="text-center mt-5 mb-4">
+            <a href="{% url 'home' %}" class="btn-primary-cm btn-with-icon">
+                <i class="mdi mdi-home-circle-outline"></i>
+                صفحه‌اصلی 
+            </a>
+        </div>
+    </div>
+
+{% endblock MainContent %}
